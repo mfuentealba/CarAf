@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+	
+	<mx:Script>
+		<![CDATA[
+			protected function fnExcel(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox paddingLeft="20" paddingTop="120" height="100%" horizontalGap="50" paddingBottom="50">
+		<mx:DataGrid width="926" height="100%">
+			<mx:columns>			
+				<mx:DataGridColumn dataField="col2" headerText="ISIN/Ticker"/>
+				<mx:DataGridColumn dataField="col3" headerText="Diferencia Precios"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Canvas>
+			<mx:Button top="50" width="88" height="34" label="Excel" click="fnExcel(event)"/>	
+		</mx:Canvas>
+			
+	</mx:HBox>
+	
+	
+</mx:Canvas>

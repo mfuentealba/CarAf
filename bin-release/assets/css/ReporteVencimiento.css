@@ -1,0 +1,401 @@
+/* CSS file */
+    @font-face {
+        src:url("../fonts/SWZ721C.TTF");
+        fontFamily: myFont;
+    }
+    @font-face {
+        src:url("../fonts/SWZ721BC.TTF");
+        fontWeight: bold;
+        fontFamily: myFont;
+    }
+Canvas {
+   shadowDirection: right;
+   dropShadowColor: #010101;
+}
+.mdiWindowFocus
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 23;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;	
+}
+.mdiWindowNoFocus
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 23;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.02, 0;
+   headerColors: #c0c0c0, #c0c0c0;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+   
+
+}
+ Panel {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+   statusStyleName: panelStatus;
+}
+ .panelDerecha {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: left;
+   statusStyleName: panelStatus;
+} 
+.panelSinHeader
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 0;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+   statusStyleName: panelStatus;
+}
+.panelAlert{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 25;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+} 
+/*
+TitleWindow
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+}*/
+
+.PanelGris {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 0.5;
+   highlightAlphas: 0.02, 0;
+   headerColors: #c0c0c0, #c0c0c0;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+}
+.PanelVerde {
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 15;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #006600, #006600;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+} 
+ .PanelRojo {
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 15;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDirection: right;
+    shadowDistance: 0;
+}
+TextInput
+{
+	cornerRadius: 0;
+	borderStyle: solid;
+	height : 16;
+}
+
+.mypanelTitle {
+   color: #ffffff;
+   fontWeight: bold;
+}
+
+Application {
+ /*  themeColor: #c0c0c0;*/
+   	fontFamily: myFont;
+  	themeColor: #c60000;
+
+}
+
+.miBoton{
+
+   cornerRadius: 5;
+   textIndent: 0;
+   paddingLeft: 5;
+   paddingRight: 5;
+   highlightAlphas: 0.66, 0;
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #efefef, #efefef, #ff8080, #ff8080;
+   /*color: #ffffff;*/
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   themeColor: #cc0000;
+   fontSize: 11;
+}
+
+.miBotonVerde {
+
+   cornerRadius: 0;
+   textIndent: 0;
+   paddingLeft: 5;
+   paddingRight: 5;
+   highlightAlphas: 0.66, 0;
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #999999, #999999, #008000, #008000;
+   color: #ffffff;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   themeColor: #cc0000;
+   
+   fontSize: 11;
+   
+
+}
+/*
+ComboBox
+{
+	cornerRadius: 0;
+	font-size:11;
+}
+*/
+
+ToggleButtonBar {
+  buttonStyleName: "miBotonMenu";
+}
+
+.miBotonMenu{
+	
+   fillAlphas: 1, 1, 1, 1;
+   themeColor: #000000;
+}
+
+DataGrid
+ {
+ 	header-colors:#c60000, #cfcfcf;
+ 	header-style-name:textoB;
+ 	horizontal-grid-line-color:#dfdfdf;
+ 	horizontal-grid-lines:true;
+ }
+ 
+ .textoB
+ {
+ 	 font-size: 10;
+ 	 color:white;
+ }
+ 
+ TabNavigator{
+ 	font-size:12;
+ 	
+ }
+ 
+ ToolTip {
+   cornerRadius: 6;
+   backgroundColor: #ff0000;
+   color: #ffffff;
+   textAlign: center;
+   fontSize: 12;
+   fontWeight: bold;
+   font-family: myFont;
+}
+
+.botonAccion{
+
+   cornerRadius: 5;
+   textIndent: 0;
+   paddingLeft: 5;
+   paddingRight: 5;
+   highlightAlphas: 0.66, 0;
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #efefef, #efefef, #ff8080, #ff8080;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   themeColor: #cc0000;
+   fontSize: 11;
+   text-align: left;
+   padding-bottom: 10;
+   padding-top: 10;
+}
+
+SuperPanel
+{
+	
+	resize-grip-skin:          	Embed(source="/../assets/images/resizeHandler.png");
+	actionAlpha:		 		0.75;
+    border-color: 				#ffffff;
+    border-alpha: 				1;
+    border-thickness-left: 		0;
+    border-thickness-top: 		0;
+    border-thickness-bottom:	9;
+    border-thickness-right: 	0;
+    corner-radius: 				6;
+    highlight-alphas: 			0.1, 0;
+    header-colors: 				#666666, #333333;
+    footer-colors: 				#ffffff, #ffffff;
+    dropShadowEnabled: 			true;
+    shadow-distance:			4;
+    
+    title-style-name:			"mypanelTitle";
+    close-button-style-name:	"closeButton";
+    minimize-button-style-name:	"minimizeButton";
+    maximize-button-style-name:	"maximizeButton";
+    
+    inactive-header-colors: 	#999999, #666666;
+    inactive-footer-colors: 	#ffffff, #ffffff;
+	inactive-shadow-distance:	1;
+	inactive-title-style-name:	"mypanelInactiveTitle";
+}
+
+
+
+.mypanelTitle
+{
+	font-weight:				bold;
+    color: 						#ffffff;
+}
+
+.mypanelInactiveTitle
+{
+	font-weight:				bold;
+    color: 						#bbbbbb;
+}
+
+.leftBox
+{
+	border-style:				solid;
+	border-sides:				right;
+	border-color:				#666666;
+	background-color:			#000000;
+	background-alpha:			0.6;
+	
+	padding-top:				20;
+	padding-bottom:				20;
+	padding-left:				20;
+	padding-right:				20;
+}
+
+
+.closeButton
+{
+	icon: 						Embed(source="/../assets/images/icon_close_up.png");
+	up-icon: 					Embed(source="/../assets/images/icon_close_up.png");
+	over-icon: 					Embed(source="/../assets/images/icon_close_over.png");
+	down-icon: 					Embed(source="/../assets/images/icon_close_down.png");
+	disabled-skin: 				Embed(source="/../assets/images/clear.png");
+	selected-up-skin: 			Embed(source="/../assets/images/clear.png");
+	selected-over-skin: 		Embed(source="/../assets/images/clear.png");
+	selected-down-skin: 		Embed(source="/../assets/images/clear.png");
+    down-skin: 					Embed(source="/../assets/images/clear.png");
+    over-skin: 					Embed(source="/../assets/images/clear.png");
+    up-skin: 					Embed(source="/../assets/images/clear.png");	
+}
+
+.maximizeButton
+{
+	icon: 						Embed(source="/../assets/images/icon_expand_up.png");
+	up-icon: 					Embed(source="/../assets/images/icon_expand_up.png");
+	over-icon: 					Embed(source="/../assets/images/icon_expand_over.png");
+	selected-over-icon: 		Embed(source="/../assets/images/icon_expand_over.png");
+	down-icon: 					Embed(source="/../assets/images/icon_expand_down.png");
+	selected-down-icon: 		Embed(source="/../assets/images/icon_expand_down.png");
+	disabled-skin: 				Embed(source="/../assets/images/clear.png");
+	selected-up-skin: 			Embed(source="/../assets/images/clear.png");
+	selected-over-skin: 		Embed(source="/../assets/images/clear.png");
+	selected-down-skin: 		Embed(source="/../assets/images/clear.png");
+    down-skin: 					Embed(source="/../assets/images/clear.png");
+    over-skin: 					Embed(source="/../assets/images/clear.png");
+    up-skin: 					Embed(source="/../assets/images/clear.png");	
+}
+
+.minimizeButton
+{
+	icon: 						Embed(source="/../assets/images/icon_minimize_up.png");
+	up-icon: 					Embed(source="/../assets/images/icon_minimize_up.png");
+	over-icon: 					Embed(source="/../assets/images/icon_minimize_over.png");
+	selected-over-icon: 		Embed(source="/../assets/images/icon_minimize_over.png");
+	down-icon: 					Embed(source="/../assets/images/icon_minimize_down.png");
+	selected-down-icon: 		Embed(source="/../assets/images/icon_minimize_down.png");
+	disabled-skin: 				Embed(source="/../assets/images/clear.png");
+	selected-up-skin: 			Embed(source="/../assets/images/clear.png");
+	selected-over-skin: 		Embed(source="/../assets/images/clear.png");
+	selected-down-skin: 		Embed(source="/../assets/images/clear.png");
+    down-skin: 					Embed(source="/../assets/images/clear.png");
+    over-skin: 					Embed(source="/../assets/images/clear.png");
+    up-skin: 					Embed(source="/../assets/images/clear.png");
+}
+
+	

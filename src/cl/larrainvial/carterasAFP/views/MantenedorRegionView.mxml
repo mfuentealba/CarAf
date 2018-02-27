@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14">
+	<mx:Script>
+		<![CDATA[
+			import cl.larrainvial.carterasAFP.components.ConfigUtil;
+			import cl.larrainvial.carterasAFP.events.RegionEvent;
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			import cl.larrainvial.carterasAFP.vo.RegionVO;
+			
+			import mx.controls.Alert;
+			import mx.controls.Text;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			
+			[Bindable] private var region:RegionVO;
+			[Bindable] private var model:ModelLocator = ModelLocator.getInstance(); 
+			
+			protected function fnBuscar():void
+			{
+				// TODO Auto-generated method stub
+				var ev:RegionEvent = new RegionEvent(RegionEvent.EVENT_REGION_LISTAR);
+				ev.dispatch();
+			}
+			
+			protected function fnGuardar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				if(txtSubregion.text == ''){
+					Alert.show('Ingrese un valor en el campo "Subregión"', 'Atención');
+					return;
+					
+				}
+				
+				if(txtMercado.text == ''){
+					Alert.show('Ingrese un valor en el campo "Mercado"', 'Atención');
+					return;
+					
+				}
+				
+				if(txtRegion.text == ''){
+					Alert.show('Ingrese un valor en el campo "Región"', 'Atención');
+					return;
+					
+				}
+				if(region){
+					var ev:RegionEvent = new RegionEvent(RegionEvent.EVENT_REGION_ACTUALIZAR);
+					ev.callback = fnBuscar;
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" subregion="' + txtSubregion.text + '" id="' + region.id + '" /></Root></XmlIn></Parametros></WSParam>'
+					ev.dispatch();
+				} else {
+					ev = new RegionEvent(RegionEvent.EVENT_REGION_GUARDAR);
+					ev.callback = fnBuscar;
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" subregion="' + txtSubregion.text + '" /></Root></XmlIn></Parametros></WSParam>'
+					ev.dispatch();	
+				}
+				
+			}
+			
+			protected function fnSeleccionActualizacion(event:ListEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.region = dg.selectedItem as RegionVO;
+				txtMercado.text = region.mercado;
+				txtRegion.text = region.nombre;
+				txtSubregion.text = region.subregion;
+			}
+			
+			protected function fnLimpiar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.region = null;
+				txtMercado.text = '';
+				txtRegion.text = '';
+				txtSubregion.text = '';
+				dg.selectedItem = null;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" horizontalAlign="center">
+		<mx:HBox top="0" width="100%" horizontalCenter="0" horizontalAlign="center">
+			
+			<mx:Form width="50%" verticalGap="30">
+				<mx:FormItem label="Nombre">
+					<mx:TextInput id="txtRegion" focusOut="txtRegion.text = ConfigUtil.fnFormatoNombres(txtRegion.text)" maxChars="30"/>
+				</mx:FormItem>
+				<mx:FormItem label="Mercado">
+					<mx:TextInput id="txtMercado" focusOut="txtMercado.text = ConfigUtil.fnFormatoNombres(txtMercado.text)" maxChars="20"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:Form width="50%" verticalGap="30">
+				<mx:FormItem label="Subregión">
+					<mx:TextInput id="txtSubregion" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtSubregion.text)" maxChars="25"/>
+				</mx:FormItem>
+				
+				
+			</mx:Form>
+		</mx:HBox>
+			
+		<mx:HBox>
+			<mx:Button label="{region ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
+			<mx:Button label="Nuevo" click="fnLimpiar(event)"/>			
+		</mx:HBox>
+		<mx:HBox horizontalAlign="right" width="100%">
+			<mx:Button label="Buscar" click="fnBuscar()"/>	
+		</mx:HBox>
+		<mx:DataGrid id="dg" width="97%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrRegiones}">
+			<mx:columns>
+				<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
+				<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
+				<mx:DataGridColumn dataField="subregion" headerText="Región"/>
+			</mx:columns>
+		</mx:DataGrid>
+		
+	</mx:VBox>
+	
+	
+</mx:Canvas>

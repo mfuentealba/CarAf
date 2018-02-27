@@ -1,0 +1,7 @@
+<configWS>
+	<Externo>
+		<id>CargaExcel</id>
+		<url>http://localhost:5789/WSCarterasAFP/Service.asmx?wsdl</wsdl>
+	</Externo>
+</configWS>
+ 

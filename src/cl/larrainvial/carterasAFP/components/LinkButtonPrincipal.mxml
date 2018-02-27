@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" backgroundColor="#848484" backgroundAlpha="0">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			
+			protected function linkButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.setStyle("backgroundAlpha", 1);
+			}
+			
+			public function fnDeseleccionar():void{
+				this.setStyle("backgroundAlpha", 0);
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:LinkButton id="linkButton" label="{label}" click="linkButton_clickHandler(event)" width="100%" height="100%" selectionColor="#848484">
+		
+	</mx:LinkButton>
+</mx:Canvas>

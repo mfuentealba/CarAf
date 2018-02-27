@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cairngorm:ServiceLocator
+	xmlns:cairngorm="com.adobe.cairngorm.business.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import cl.larrainvial.carterasAFP.components.ConfigUtil;
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.InvokeEvent;
+			import mx.rpc.events.ResultEvent;
+			
+		[Bindable]
+		private var model:ModelLocator = ModelLocator.getInstance();
+		
+		//*****************************************************************************************************
+		private function faultHandler(event:FaultEvent):void
+		{
+			
+			model.cntrBl--;
+			if(!event.target['callOfs']){
+				Alert.show("Error con la Aplicación, favor comunicar al administrador", "Información");	
+			}
+			trace('Service.faultHandler ' + model.cntrBl);//Alert.show("Error con la Aplicación, favor comunicar al administrador", "Información");
+		}
+		//*****************************************************************************************************				
+			
+		protected function WSOrderCapture_invokeHandler(event:mx.rpc.events.InvokeEvent):void
+		{
+			// TODO Auto-generated method stub				
+			model.cntrBl++;
+			trace('Service.invokeHandler ' + model.cntrBl + ' ' + event.token.message.body);//Alert.show("Error con la Aplicación, favor comunicar al administrador", "Información");
+		}
+		
+		protected function WSOrderCapture_resultHandler(event:ResultEvent):void
+		{
+			// TODO Auto-generated method stub				
+			model.cntrBl--;
+			trace('Service.resultHandler ' + model.cntrBl + ' ' + event.message.body);//Alert.show("Error con la Aplicación, favor comunicar al administrador", "Información");
+		}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:WebService
+	 useProxy="false"
+	 id="WSCarterasAFP"
+	 showBusyCursor="true"
+	 wsdl="{ConfigUtil.buscarRuta('WSCarterasAFP')}" 
+	 endpointURI="{ConfigUtil.buscarRuta('WSCarterasAFP', 'uri')}"
+	 concurrency="multiple" 
+	 invoke="WSOrderCapture_invokeHandler(event)"
+	 result="WSOrderCapture_resultHandler(event)"
+	 fault="faultHandler(event)"/>
+	
+				
+	<mx:WebService
+		useProxy="false"
+		id="WSValidaNT"
+		showBusyCursor="true"
+		wsdl="{model.servicesCollection.getItemAt(2).wsdl}" 
+		endpointURI="{model.servicesCollection.getItemAt(2).uri}"
+		concurrency="multiple"
+		invoke="WSOrderCapture_invokeHandler(event)"
+		result="WSOrderCapture_resultHandler(event)"
+		
+		fault="faultHandler(event)"/>
+	
+		
+</cairngorm:ServiceLocator>
+
+		
+		
+		
+	
+	
+
+
+	 			

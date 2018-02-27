@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<configWS>
+	<WebService>
+		<id>WSMesaAcciones</id>
+		<wsdl>http://WebServices.larrainvial.com/WSMesaAcciones/MesaAcciones.asmx?WSDL</wsdl>
+		<endpointURI>http://WebServices.larrainvial.com/WSMesaAcciones/MesaAcciones.asmx</endpointURI>
+		<!--<wsdl>http://lircay/WebServices/WSMesaAcciones/mesaacciones.asmx?WSDL</wsdl>
+		<endpointURI>http://lircay/WebServices/WSMesaAcciones/mesaacciones.asmx</endpointURI>-->
+	</WebService>
+	<WebService>
+		<id>WSLogin</id>
+		<wsdl>http://WebServices.larrainvial.com/WSLogin/Valida_NT.asmx?wsdl</wsdl>
+		<uri>http://WebServices.larrainvial.com/WSLogin/Valida_NT.asmx</uri>
+		<!--<wsdl>http://webservices.larrainvial.com/WSLogin/Valida_NT.asmx?wsdl</wsdl>
+		<uri>http://webservices.larrainvial.com/WSLogin/Valida_NT.asmx</uri>-->
+	</WebService>
+	
+</configWS>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" minWidth="955" minHeight="600" 
+				xmlns:components="cl.larrainvial.carterasAFP.components.*" xmlns:views="cl.larrainvial.carterasAFP.views.*" 
+				xmlns:controller="cl.larrainvial.carterasAFP.controller.*" initialize="ini(event)">
+	
+	<mx:Style source="/assets/css/reportevencimientonacional.css"/>
+	
+	<mx:Script>
+		<![CDATA[ 
+			import cl.larrainvial.carterasAFP.business.Services;
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			import cl.larrainvial.carterasAFP.vo.ConfigVO;
+			import cl.larrainvial.carterasAFP.vo.WebServicesVo;
+			import mx.collections.ArrayCollection;
+			
+			import mx.controls.Alert;
+			import mx.controls.Button;
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			
+			
+			private var selectLinks:LinkButtonPrincipal;
+			public var servicio:Services;
+			
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			protected function fnSelecOpcion(event:MouseEvent, opt:int):void
+			{
+				// TODO Auto-generated method stub
+				if(event.currentTarget != selectLinks){
+					vwPrincipal.selectedIndex = opt;					
+					selectLinks.fnDeseleccionar();
+					selectLinks = event.currentTarget as LinkButtonPrincipal;	
+				}
+				
+			}
+			
+			
+			
+			protected function fnIniciaSelecciones(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				selectLinks = event.target as LinkButtonPrincipal;
+				event.target.linkButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			}
+			
+			
+			private function errorHttpService(event:FaultEvent):void
+			{
+				Alert.show("Error en carga de archivo configurador de WebService", "Client Error");
+			}
+			
+			
+			private function cargarServicios():Services
+			{
+				servicio = new Services();								
+				
+				return servicio;
+			}	
+			
+			private function loadWebService(event:ResultEvent):void
+			{
+				var servicios:XMLList = event.result..WebService;
+				
+				var config:WebServicesVo;
+				
+				for each(var nodeWS:XML in servicios)
+				{
+					config = new WebServicesVo();
+					config.fill = nodeWS;
+					model.servicesCollection.addItem(config);
+				}
+				
+				var serviceLoaded:Services = cargarServicios();
+				
+				
+				
+				if(!serviceLoaded)
+				{
+					Alert.show("Error en la carga de servicios. \nPor favor recargue la pagina", "Error");
+				}
+				
+				
+			}	
+			
+			
+			private function loadPeriodos(event:ResultEvent):void
+			{
+				var servicios:XMLList = event.result..Periodo;
+				model.arrPeriodos = new ArrayCollection();
+				
+				var config:Object;
+				for each(var nodeWS:XML in servicios)
+				{
+					config = {};
+					config.label = String(nodeWS); 
+					model.arrPeriodos.addItem(config);
+				}
+				
+				
+				
+			}	
+			
+			
+			protected function ini(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				webServices.send();
+				webPeriodos.send();
+				webTipoCartera.send();
+				webPais.send();
+				 
+			}
+			
+			protected function webTipoCartera_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				var servicios:XMLList = event.result..Cartera;
+				model.arrTipoCartera = new ArrayCollection();
+				
+				var config:Object;
+				for each(var nodeWS:XML in servicios)
+				{
+					config = {};
+					config.label = String(nodeWS); 
+					model.arrTipoCartera.addItem(config);
+				}
+				
+			}
+			
+			protected function loadPais(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				var servicios:XMLList = event.result..Pais;
+				model.arrPais = new ArrayCollection();
+				
+				var config:Object;
+				for each(var nodeWS:XML in servicios)
+				{
+					config = {};
+					config.label = String(nodeWS); 
+					model.arrPais.addItem(config);
+				}
+				
+			}
+			
+			
+			protected function loadExternos(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				var servicios:XMLList = event.result..Externo;
+				model.arrServiciosExternos = new ArrayCollection();
+				
+				var config:Object;
+				for each(var nodeWS:XML in servicios)
+				{
+					config = {};
+					config.id = String(nodeWS.id);
+					config.url = String(nodeWS.url);
+					model.arrServiciosExternos.addItem(config);
+				}
+				model.rutaUpload = model.arrServiciosExternos.getItemAt(0)['url']; 
+			}
+			
+		]]>
+	</mx:Script>
+	<controller:Controller/>
+	<mx:HTTPService
+		id="webServices"
+		url="./config/configWS.xml"
+		result="loadWebService(event)"
+		fault="errorHttpService(event)"
+		useProxy="false"
+		resultFormat="e4x"/>
+	
+	<mx:HTTPService
+		id="webPeriodos"
+		url="./config/configPeriodos.xml"
+		result="loadPeriodos(event)"
+		fault="errorHttpService(event)"
+		useProxy="false"
+		resultFormat="e4x"/>
+	<mx:HTTPService
+		id="webTipoCartera"
+		url="./config/configTipoCartera.xml"
+		result="webTipoCartera_resultHandler(event)"
+		fault="errorHttpService(event)"
+		useProxy="false"
+		resultFormat="e4x"/>
+	
+	<mx:HTTPService
+		id="webPais"
+		url="./config/configPais.xml"
+		result="loadPais(event)"
+		fault="errorHttpService(event)"
+		useProxy="false"
+		resultFormat="e4x"/>
+	<mx:HTTPService
+		id="webExternos"
+		url="./config/configExternos.xml"
+		result="loadExternos(event)"
+		fault="errorHttpService(event)"
+		useProxy="false"
+		resultFormat="e4x"/>
+	
+	<mx:Panel title="Carteras de AFP" width="100%" height="100%" layout="absolute" styleName="panelPrincipal">
+		<mx:HBox width="100%" height="100%" paddingBottom="20" paddingTop="20" paddingLeft="20" paddingRight="20">
+			<mx:VBox height="100%" paddingBottom="20" paddingTop="20" paddingLeft="20" paddingRight="20" verticalGap="10" backgroundColor="#eeeeee">
+				<mx:VBox width="200" paddingBottom="20" paddingTop="20" verticalGap="5" backgroundColor="#eeeeee">
+					<mx:Label fontSize="18" fontWeight="bold" text="Carteras AFP"/>
+					<components:LinkButtonPrincipal id="linkIni" label="Carga Archivo Carteras AFP" width="100%" click="fnSelecOpcion(event, 0)" creationComplete="fnIniciaSelecciones(event)"/>				
+				</mx:VBox>
+				<mx:VBox width="200" paddingBottom="20" paddingTop="20" verticalGap="5" backgroundColor="#eeeeee">
+					<mx:Label fontSize="18" fontWeight="bold" text="Mantenedores"/>
+					<components:LinkButtonPrincipal label="Distribuidor" width="100%" click="fnSelecOpcion(event, 1)"/> <!--click="fnSelecOpcion(event, 1)"-->
+					<components:LinkButtonPrincipal label="Manager" width="100%" click="fnSelecOpcion(event, 2)"/>
+					<components:LinkButtonPrincipal label="Región" width="100%" click="fnSelecOpcion(event, 3)"/>
+					<components:LinkButtonPrincipal label="Subregión" width="100%" click="fnSelecOpcion(event, 4)"/>
+					<components:LinkButtonPrincipal label="Instrumentos" width="100%" click="fnSelecOpcion(event, 5)"/>
+				</mx:VBox>
+				<mx:VBox width="200" paddingBottom="20" paddingTop="20" verticalGap="5" backgroundColor="#eeeeee">
+					<mx:Label fontSize="18" fontWeight="bold" text="Reportes"/>
+					<components:LinkButtonPrincipal label="Diferencia de Precios" width="100%" click="fnSelecOpcion(event, 6)"/>
+					<components:LinkButtonPrincipal label="Comparación de Carteras" width="100%" click="fnSelecOpcion(event, 7)"/>
+				</mx:VBox>
+				
+					
+			</mx:VBox>
+			
+			<mx:ViewStack id="vwPrincipal" width="100%" height="100%">
+				<views:CargaCarterasView width="100%" height="100%">
+				</views:CargaCarterasView>
+				<views:MantenedorDistribuidoresView width="100%" height="100%" label="">
+				</views:MantenedorDistribuidoresView>
+				<views:MantenedorManagerView width="100%" height="100%" label="">
+				</views:MantenedorManagerView>
+				<views:MantenedorRegionView width="100%" height="100%" label="">
+				</views:MantenedorRegionView>
+				<views:MantenedorSubregionView width="100%" height="100%" label="">
+				</views:MantenedorSubregionView>
+				<views:MantenedorInstrumentosView width="100%" height="100%" label="">
+				</views:MantenedorInstrumentosView>
+				<views:ReporteDiferenciaPrecios width="100%" height="100%" label="">
+				</views:ReporteDiferenciaPrecios>
+				<views:ReporteComparacionCarteras width="100%" height="100%" label="">
+				</views:ReporteComparacionCarteras>
+				
+			</mx:ViewStack>
+		</mx:HBox>
+	</mx:Panel>
+	
+	
+	
+</mx:Application>

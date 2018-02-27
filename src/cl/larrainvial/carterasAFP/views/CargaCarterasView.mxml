@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="2000" height="544" fontSize="14">
+	<mx:Script>
+		<![CDATA[
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			
+			import com.as3xls.xls.ExcelFile;
+			import com.as3xls.xls.Sheet;
+			
+			import mx.controls.Alert;
+			import mx.managers.CursorManager;
+			
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			private var uploadURL:URLRequest;
+			private var fileRef:FileReference;
+			
+			
+			
+			
+			
+			
+			protected function fnBuscarArchivo(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var arr:Array = [];
+				arr.push(new FileFilter("Archivos Excel 2003", "*.xls"));
+				fileRef = new FileReference();
+				fileRef.addEventListener(Event.SELECT, fileRef_select);
+				//fileRef.addEventListener(Event.COMPLETE, fileRef_complete);
+				fileRef.addEventListener(Event.CANCEL, fileRef_close);
+				fileRef.addEventListener(Event.CLOSE, fileRef_close);
+				fileRef.addEventListener(IOErrorEvent.IO_ERROR, fileRef_error);
+				
+				fileRef.browse(arr);
+				
+				
+				
+			}
+			
+			public function onComplete(evt:Event):void 
+			{ 
+				
+				fileRef.removeEventListener(Event.COMPLETE, onComplete);
+				fileRef.addEventListener(Event.COMPLETE, fileRef_complete);
+		
+				var request:URLRequest = new URLRequest(model.rutaUpload); 
+				try 
+				{ 
+					CursorManager.setBusyCursor();
+					request.contentType = "multipart/form-data";
+					request.method = "POST";
+					fileRef.upload(request, fileRef.name, false); 
+				} 
+				catch (error:Error) 
+				{ 
+					CursorManager.removeBusyCursor();
+					trace("Unable to upload file."); 
+				}
+							
+							
+		 
+			} 
+			
+			
+			private function fileRef_select(evt:Event):void 
+			{
+				
+				
+				//if('2016-12-32' == )	
+				
+				fileRef.addEventListener(ProgressEvent.PROGRESS, onProgress); 
+				fileRef.addEventListener(Event.COMPLETE, onComplete); 
+				fileRef.load(); 
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			public function onProgress(evt:ProgressEvent):void 
+			{ 
+				trace("Loaded " + evt.bytesLoaded + " of " + evt.bytesTotal + " bytes."); 
+			} 
+			
+			private function importar(): void
+			{
+				var arr:Array = [];
+				arr.push(new FileFilter("Archivos Excel 2003", "*.xls"));
+				fileRef = new FileReference();
+				fileRef.addEventListener(Event.SELECT, fileRef_select);
+				//fileRef.addEventListener(Event.COMPLETE, fileRef_complete);
+				fileRef.addEventListener(Event.CANCEL, fileRef_close);
+				fileRef.addEventListener(Event.CLOSE, fileRef_close);
+				fileRef.addEventListener(IOErrorEvent.IO_ERROR, fileRef_error);
+				
+				fileRef.browse(arr);
+			}
+			
+			private function fileRef_close(evt:Event):void
+			{
+				CursorManager.removeBusyCursor();
+			}
+			
+			private function fileRef_complete(evt:Event):void {
+				fileRef.removeEventListener(Event.SELECT, fileRef_select);
+				fileRef.removeEventListener(Event.COMPLETE, fileRef_complete);
+				fileRef.removeEventListener(IOErrorEvent.IO_ERROR, fileRef_error);
+				
+				var xmlStr: String = "";
+				xmlStr += "<ARCHIVO>";
+				xmlStr += "<DESCRIPCION_ARCHIVO>";
+				xmlStr += "<NOMBRE_ARCHIVO>" + fileRef.name + "</NOMBRE_ARCHIVO>";
+				xmlStr += "<USUARIO>" + model.Loggeado + "</USUARIO>";
+				xmlStr += "</DESCRIPCION_ARCHIVO>";
+				xmlStr += "</ARCHIVO>";
+				
+				
+			}
+			
+			
+			private function fileRef_error(evt: IOErrorEvent):void
+			{
+				CursorManager.removeBusyCursor();
+				fileRef.removeEventListener(Event.SELECT, fileRef_select);
+				fileRef.removeEventListener(Event.COMPLETE, fileRef_complete);
+				fileRef.removeEventListener(IOErrorEvent.IO_ERROR, fileRef_error);
+				Alert.show("El archivo no pudo ser subido, \nPor favor reintentar", "Error", Alert.OK, null, null);
+			}
+			
+			
+			
+			protected function fnCargaArchivo(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				CursorManager.removeBusyCursor();
+				var event: ImportarEvent = new ImportarEvent(xmlStr);
+				event.callback = fnBuscar;
+				event.dispatch();
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" horizontalGap="0">
+		<mx:Canvas width="50%" height="119">
+			<mx:Label y="31" horizontalCenter="-295" text="Periodo"/>
+			<mx:Label y="71" horizontalCenter="-281" text="Tipo Cartera"/>
+			<mx:ComboBox id="cbPeriodo" y="29" horizontalCenter="0" labelField="label" dataProvider="{model.arrPeriodos}"></mx:ComboBox>
+			<mx:ComboBox id="cbTipoCartera" y="69" horizontalCenter="0" dataProvider="{model.arrTipoCartera}"></mx:ComboBox>	
+		</mx:Canvas>
+		<mx:Canvas width="50%" height="119">
+			<mx:Label x="250" y="31" text="País"/>
+			<mx:Label x="250" y="71" text="Archivo"/>
+			<mx:ComboBox id="cbPais" horizontalCenter="0" y="29" labelField="label" dataProvider="{model.arrPais}"></mx:ComboBox>
+			<mx:TextInput id="txtNomArchivo" y="69" horizontalCenter="0"/>
+			<mx:Button x="599" y="69" label="Examinar" click="fnBuscarArchivo(event)"/>
+			<mx:Button x="705" y="68" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
+		</mx:Canvas>	
+	</mx:HBox>
+	
+	
+	<mx:Button y="120" width="183" height="40" label="Ejecutar Proceso" horizontalCenter="0"/>
+	<mx:DataGrid left="10" right="10" top="168" bottom="10">
+		<mx:columns>
+			<mx:DataGridColumn dataField="col1" headerText="Column 1"/>
+			<mx:DataGridColumn dataField="col2" headerText="Column 2"/>
+			<mx:DataGridColumn dataField="col3" headerText="Column 3"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	
+	
+</mx:Canvas>

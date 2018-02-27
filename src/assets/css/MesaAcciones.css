@@ -1,0 +1,270 @@
+/* CSS file */
+    @font-face {
+        src:url("../fonts/SWZ721C.TTF");
+        fontFamily: myFont;
+    }
+    @font-face {
+        src:url("../fonts/SWZ721BC.TTF");
+        fontWeight: bold;
+        fontFamily: myFont;
+    }
+Canvas {
+   shadowDirection: right;
+   dropShadowColor: #010101;
+}
+.mdiWindowFocus
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 23;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;	
+}
+.mdiWindowNoFocus
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 23;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.02, 0;
+   headerColors: #c0c0c0, #c0c0c0;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+   
+
+}
+ Panel {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+   statusStyleName: panelStatus;
+}
+ .panelDerecha {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: left;
+   statusStyleName: panelStatus;
+} 
+.panelSinHeader
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 0;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+   statusStyleName: panelStatus;
+}
+.panelAlert{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 25;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+} 
+/*
+TitleWindow
+{
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+}*/
+
+.PanelGris {
+   borderAlpha: 1;
+   borderThicknessLeft: 0;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 21;
+   backgroundAlpha: 0.5;
+   highlightAlphas: 0.02, 0;
+   headerColors: #c0c0c0, #c0c0c0;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 7;
+   shadowDirection: right;
+}
+.PanelVerde {
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 15;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #006600, #006600;
+   titleStyleName: "mypanelTitle";
+   shadowDistance: 0;
+   shadowDirection: right;
+} 
+ .PanelRojo {
+   borderAlpha: 1;
+   borderThicknessLeft: 1;
+   borderThicknessTop: 0;
+   borderThicknessBottom: 0;
+   borderThicknessRight: 0;
+   cornerRadius: 0;
+   headerHeight: 15;
+   backgroundAlpha: 1;
+   highlightAlphas: 0.66, 0;
+   headerColors: #cc0000, #cc0000;
+   titleStyleName: "mypanelTitle";
+   shadowDirection: right;
+   shadowDistance: 0;
+}
+
+TextInput
+{
+	cornerRadius: 0;
+	borderStyle: solid;
+	height : 16;
+}
+
+.mypanelTitle {
+   color: #ffffff;
+   fontWeight: bold;
+}
+
+Application {
+   themeColor: #c0c0c0;
+   	fontFamily: myFont; 
+  	themeColor: #c60000;
+}
+
+.miBoton{
+
+   cornerRadius: 5;
+   textIndent: 0;
+   paddingLeft: 5;
+   paddingRight: 5;
+   highlightAlphas: 0.66, 0;
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #efefef, #efefef, #ff8080, #ff8080;
+   /*color: #ffffff;*/
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   themeColor: #cc0000;
+   fontSize: 11;
+}
+
+.miBotonVerde {
+
+   cornerRadius: 0;
+   textIndent: 0;
+   paddingLeft: 5;
+   paddingRight: 5;
+   highlightAlphas: 0.66, 0;
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #999999, #999999, #008000, #008000;
+   color: #ffffff;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   themeColor: #cc0000;
+   
+   fontSize: 11;
+   
+
+}
+ComboBox
+{
+	cornerRadius: 0;
+	font-size:11;
+}
+
+
+/*ToggleButtonBar {
+  buttonStyleName: "miBotonMenu";
+}*/
+
+.miBotonMenu{
+	
+   fillAlphas: 1, 1, 1, 1;
+   themeColor: #000000;
+}
+ 
+ DataGrid
+ {
+ 	header-colors:#c60000, #cfcfcf;
+ 	header-style-name:textoB;
+ 	horizontal-grid-line-color:#dfdfdf;
+ 	horizontal-grid-lines:true;
+ }
+ 
+.textoB
+ {
+ 	 text-align:center; 	
+ 	 font-size: 10;
+ 	 color:white;
+ }
+ 
+ /*
+ TabNavigator{
+ 	font-size:12;
+ 	
+ }*/
+ 
+ Alert{
+ 	background-color: #ffffff;
+ 	color: #000000;
+ }
