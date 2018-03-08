@@ -14,8 +14,10 @@
 			
 			[Bindable] private var distribuidor:DistribuidorVO;
 			[Bindable] private var model:ModelLocator = ModelLocator.getInstance(); 
+			[Bindable] public var ver:Boolean = true;
+			[Bindable] public var fn:Function;
 			
-			protected function fnBuscar():void
+			protected function fnBuscar(data:*, campo:String):void
 			{
 				// TODO Auto-generated method stub
 				var ev:DistribuidorEvent = new DistribuidorEvent(DistribuidorEvent.EVENT_DISTRIBUIDOR_LISTAR);
@@ -41,16 +43,22 @@
 				frm.txtAnio.text = distribuidor.anio;
 			}
 			
+			protected function fnAceptar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				fn.call(this, dg.selectedItem, 'id_distribuidor');
+			}
+			
 			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center">
-		<views:FormDistribuidor id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}"/>
+		<views:FormDistribuidor id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}" visible="{ver}" includeInLayout="{ver}"/>
 		<mx:HBox horizontalAlign="right" width="100%" paddingRight="15">
-			<mx:Button label="Buscar" click="fnBuscar()"/>	
+			<mx:Button label="Buscar" click="fnBuscar(null, null)"/>	
 		</mx:HBox>
 		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
-			<mx:DataGrid id="dg" width="100%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrDistribuidores}">
+			<mx:DataGrid id="dg" width="100%" creationComplete="fnBuscar(null, null)" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrDistribuidores}">
 				<mx:columns>
 					<mx:DataGridColumn dataField="anio" headerText="Año"/>						
 					<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
@@ -68,7 +76,7 @@
 				</mx:columns>
 			</mx:DataGrid>
 		</mx:HBox>
-		
+		<mx:Button label="Aceptar" enabled="{dg.selectedItem ? true : false}" click="fnAceptar(event)"  visible="{!ver}" includeInLayout="{!ver}"/>
 		
 	</mx:VBox>
 	

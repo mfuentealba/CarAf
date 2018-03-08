@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" paddingBottom="10" layout="absolute" width="800" close="fnSalir(event)" title="Ingrese Datos" showCloseButton="true">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" paddingBottom="10" layout="absolute" width="800" minHeight="600" close="fnSalir(null, null)" title="Ingrese Datos" showCloseButton="true">
 	<mx:Script>
 		<![CDATA[
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			
 			import mx.events.CloseEvent;
+			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			
-			public function fnSalir(dat:*):void
+			public var formulario:*;
+			public var objRelacionado:*;
+			
+			[Bindable] private var model:ModelLocator = ModelLocator.getInstance();
+			public var arr:Array = [];
+			public var callback:Function;
+			
+			public function fnSalir(dat:*, campo:String):void
 			{
 				// TODO Auto-generated method stub
+				
 				PopUpManager.removePopUp(this);
+			}
+			
+			public function fnCompletar(obj:*, campo:String):void{
+				callback.call(this, obj, campo);
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function fnCreaMantenedor(canva:Canvas, index:int):void
+			{
+				// TODO Auto-generated method stub
+				canva.addChild(arr[index]);
 			}
 			
 		]]>
 	</mx:Script>
+	<mx:TabNavigator id="contenedor" height="100%" minHeight="600" width="100%">
+		<mx:Canvas id="nuevo" width="100%" height="100%" label="Nuevo" creationComplete="fnCreaMantenedor(nuevo, 0)">
+		</mx:Canvas>
+		<mx:Canvas id="existente" width="100%" height="100%" label="Existente" creationComplete="fnCreaMantenedor(existente, 1)">
+		</mx:Canvas>
+	</mx:TabNavigator>
 	
 </mx:TitleWindow>

@@ -92,7 +92,7 @@ package cl.larrainvial.carterasAFP.components
 			var val:* = str.search(reg);
 			
 			if(val < 0){
-				Alert.show("Se debe ingresar el periodo en formato aaaa-mm", "Atención");
+				Alert.show("Se debe ingresar el periodo en formato aaaa", "Atención");
 				return '';
 			}
 			

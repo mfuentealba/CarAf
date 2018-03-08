@@ -10,6 +10,11 @@
 			import cl.larrainvial.carterasAFP.components.RenderProcesoSubregion;
 			import cl.larrainvial.carterasAFP.events.ProcesoEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			import cl.larrainvial.carterasAFP.vo.DistribuidorVO;
+			import cl.larrainvial.carterasAFP.vo.InstrumentoVO;
+			import cl.larrainvial.carterasAFP.vo.ManagerVO;
+			import cl.larrainvial.carterasAFP.vo.RegionVO;
+			import cl.larrainvial.carterasAFP.vo.SubregionVO;
 			
 			import mx.controls.Alert;
 			import mx.controls.LinkButton;
@@ -17,6 +22,13 @@
 			import mx.managers.PopUpManager;
 			
 			[Bindable] private var model:ModelLocator = ModelLocator.getInstance();
+			
+			private var instrumento:InstrumentoVO;
+			private var manager:ManagerVO;
+			private var distribuidor:DistribuidorVO;
+			private var region:RegionVO;
+			private var subregion:SubregionVO;
+			
 			
 			protected function fnConfirmar(event:MouseEvent):void
 			{
@@ -28,54 +40,113 @@
 				Alert.show('Guardado con éxito. Los datos guardados no pueden ser modificados', 'Datos registrados'); 
 			}
 			
+			private function fnCompletar(obj:*, campo:String):void{
+				dg.selectedItem[campo] = obj.id;
+				model.arrProceso.setItemAt(dg.selectedItem, model.arrProceso.getItemIndex(dg.selectedItem));
+			}
+			
 			protected function fnMantenedor(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
 				if(event.itemRenderer is RenderProcesoNemo){
 					var pop:PopMantenedor = new PopMantenedor();
+					pop.callback = fnCompletar;
 					var mant:* = new FormInstrumento();
-					mant.fnBuscar = pop.fnSalir;
-					
-					pop.addChild(mant);
+					var exis:* = new MantenedorInstrumentosView();
+					exis.ver = false;
+					exis.fn = pop.fnCompletar;
+					pop.formulario = mant; 
+					mant.fnBuscar = pop.fnCompletar;
+					instrumento = new InstrumentoVO();
+					pop.objRelacionado = instrumento; 
+					pop.arr.push(mant);
+					pop.arr.push(exis);
 					//mant.bottom = 10;
 					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
 					PopUpManager.centerPopUp(pop);
+					var arr:Array = dg.selectedItem.nemo.split(' (');
+					arr = arr[0].split('/');
+					mant.txtISIN.text = arr[0] == 'SIN ISIN' ? '' : arr[0];
+					mant.txtTicker.text = arr[1] == 'SIN TICKER' ? '' : arr[1];
+					
 				} else if(event.itemRenderer is RenderProcesoManager){
+										
 					pop = new PopMantenedor();
+					pop.callback = fnCompletar;
 					mant = new FormManager();
-					mant.fnBuscar = pop.fnSalir;
-					
-					pop.addChild(mant);
+					exis = new MantenedorManagerView();
+					exis.ver = false;
+					exis.fn = pop.fnCompletar;
+					pop.formulario = mant; 
+					mant.fnBuscar = pop.fnCompletar;
+					instrumento = new InstrumentoVO();
+					pop.objRelacionado = instrumento; 
+					pop.arr.push(mant);
+					pop.arr.push(exis);
 					//mant.bottom = 10;
 					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
 					PopUpManager.centerPopUp(pop);
+					
+					
 				} else if(event.itemRenderer is RenderProcesoDistribuidor){
+					
 					pop = new PopMantenedor();
+					pop.callback = fnCompletar;
 					mant = new FormDistribuidor();
-					mant.fnBuscar = pop.fnSalir;
-					
-					pop.addChild(mant);
+					exis = new MantenedorDistribuidoresView();
+					exis.ver = false;
+					exis.fn = pop.fnCompletar;
+					pop.formulario = mant; 
+					mant.fnBuscar = pop.fnCompletar;
+					//instrumento = new InstrumentoVO();
+					//pop.objRelacionado = instrumento; 
+					pop.arr.push(mant);
+					pop.arr.push(exis);
 					//mant.bottom = 10;
 					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
 					PopUpManager.centerPopUp(pop);
+					
+					
 				} else if(event.itemRenderer is RenderProcesoRegion){
+					
+					
 					pop = new PopMantenedor();
+					pop.callback = fnCompletar;
 					mant = new FormRegion();
-					mant.fnBuscar = pop.fnSalir;
-					
-					pop.addChild(mant);
+					exis = new MantenedorRegionView();
+					exis.ver = false;
+					exis.fn = pop.fnCompletar;
+					pop.formulario = mant; 
+					mant.fnBuscar = pop.fnCompletar;
+					//instrumento = new InstrumentoVO();
+					//pop.objRelacionado = instrumento; 
+					pop.arr.push(mant);
+					pop.arr.push(exis);
 					//mant.bottom = 10;
 					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
 					PopUpManager.centerPopUp(pop);
+					
+					
 				} else if(event.itemRenderer is RenderProcesoSubregion){
-					pop = new PopMantenedor();
-					mant = new FormSubregion();
-					mant.fnBuscar = pop.fnSalir;
 					
-					pop.addChild(mant);
+					
+					pop = new PopMantenedor();
+					pop.callback = fnCompletar;
+					mant = new FormSubregion();
+					exis = new MantenedorSubregionView();
+					exis.ver = false;
+					exis.fn = pop.fnCompletar;
+					pop.formulario = mant; 
+					mant.fnBuscar = pop.fnCompletar;
+					//instrumento = new InstrumentoVO();
+					//pop.objRelacionado = instrumento; 
+					pop.arr.push(mant);
+					pop.arr.push(exis);
 					//mant.bottom = 10;
 					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
 					PopUpManager.centerPopUp(pop);
+					
+					
 				}
 			}
 			
@@ -83,7 +154,7 @@
 	</mx:Script>
 	
 	<mx:VBox width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
-		<mx:DataGrid width="100%" height="100%" dataProvider="{model.arrProceso}" itemClick="fnMantenedor(event)">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{model.arrProceso}" itemClick="fnMantenedor(event)">
 			<mx:columns>
 				<mx:DataGridColumn dataField="nemo" headerText="Nemotécnico" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoNemo" width="300"/>
 				<mx:DataGridColumn dataField="instrumento.tipo" headerText="Tipo" width="100"/>

@@ -9,8 +9,10 @@
 			import mx.events.ListEvent;
 			
 			[Bindable] private var model:ModelLocator = ModelLocator.getInstance(); 
+			[Bindable] public var ver:Boolean = true;
+			[Bindable] public var fn:Function;
 			
-			protected function fnBuscar():void
+			protected function fnBuscar(data:*, campo:String):void
 			{
 				// TODO Auto-generated method stub
 				var ev:InstrumentoEvent = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_LISTAR);
@@ -35,17 +37,24 @@
 				frm.txtRegion.text = frm.instrumento.region;
 				frm.txtAnio.text = frm.instrumento.anio;
 			}
+			
+			protected function fnAceptar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				fn.call(this, dg.selectedItem, 'id_instrumento');
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center">
-		<views:FormInstrumento id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}"/>
+		<views:FormInstrumento id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}" visible="{ver}" includeInLayout="{ver}"/>
 			
 		
 		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15">
-			<mx:Button label="Buscar" click="fnBuscar()"/>	
+			<mx:Button label="Buscar" click="fnBuscar(null, null)"/>	
 		</mx:HBox>
 		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
-			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar()"
+			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar(null, null)"
 						 dataProvider="{model.arrInstrumentos}"
 						 itemClick="fnSeleccionActualizacion(event)">
 				<mx:columns>
@@ -65,7 +74,7 @@
 				</mx:columns>
 			</mx:DataGrid>	
 		</mx:HBox>
-		
+		<mx:Button label="Aceptar" enabled="{dg.selectedItem ? true : false}" click="fnAceptar(event)"  visible="{!ver}" includeInLayout="{!ver}"/>
 		
 	</mx:VBox>
 	

@@ -54,7 +54,7 @@
 				}
 				
 				if(txtSubregion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Subregion"', 'Atención');
+					Alert.show('Ingrese un valor en el campo "Subregión"', 'Atención');
 					return;
 					
 				}
@@ -89,14 +89,14 @@
 				}
 				
 				if(txtRegion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Region"', 'Atención');
+					Alert.show('Ingrese un valor en el campo "Región"', 'Atención');
 					return;
 					
 				}
 				
 				
 				if(txtAnio.text == ''){
-					Alert.show('Ingrese un valor en el campo "Anio"', 'Atención');
+					Alert.show('Ingrese un valor en el campo "Año"', 'Atención');
 					return;
 					
 				}
@@ -138,7 +138,10 @@
 				txtCapitalizacion.text = '';
 				txtRegion.text = '';
 				txtAnio.text = '';
-				dg.selectedItem = null;
+				if(dg){
+					dg.selectedItem = null;	
+				}
+				
 			}
 			
 		]]>
@@ -149,7 +152,7 @@
 				<mx:TextInput id="txtAnio" focusOut="txtAnio.text = ConfigUtil.fnvalidaAnio(txtAnio.text)" maxChars="4"/>
 			</mx:FormItem>
 			<mx:FormItem label="ISIN">
-				<mx:TextInput id="txtISIN" focusOut="txtISIN.text = ConfigUtil.fnFormatoNombres(txtISIN.text)" maxChars="20"/>
+				<mx:TextInput id="txtISIN" focusOut="txtISIN.text = ConfigUtil.fnFormatoNombres(txtISIN.text)" restrict="A-Z0-9" maxChars="20"/>
 			</mx:FormItem>
 			<mx:FormItem label="Tipo">
 				<mx:TextInput id="txtTipo" focusOut="txtTipo.text = ConfigUtil.fnFormatoNombres(txtTipo.text)" maxChars="20"/>
@@ -173,7 +176,7 @@
 				<mx:TextInput id="txtPeriodo" focusOut="txtPeriodo.text = ConfigUtil.fnvalidaFormatoPeriodo(txtPeriodo.text)" maxChars="7"/>
 			</mx:FormItem>
 			<mx:FormItem label="Ticker">
-				<mx:TextInput id="txtTicker" focusOut="txtTicker.text = ConfigUtil.fnFormatoNombres(txtTicker.text)" maxChars="20"/>
+				<mx:TextInput id="txtTicker" focusOut="txtTicker.text = ConfigUtil.fnFormatoNombres(txtTicker.text)" restrict="A-Z" maxChars="20"/>
 			</mx:FormItem>
 			<mx:FormItem label="Distribuidor">
 				<mx:TextInput id="txtDistribuidor" focusOut="txtDistribuidor.text = ConfigUtil.fnFormatoNombres(txtDistribuidor.text)" maxChars="50"/>

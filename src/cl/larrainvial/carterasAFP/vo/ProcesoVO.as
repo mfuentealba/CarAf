@@ -90,6 +90,7 @@ package cl.larrainvial.carterasAFP.vo
 			var model:ModelLocator = ModelLocator.getInstance();
 			_id_instrumento = value;
 			instrumento = model.objInstrumentos[value];
+			nemo = (instrumento.isin ? instrumento.isin: 'SIN ISIN') + '/' + (instrumento.ticker ? instrumento.ticker : 'SIN TICKER');
 		}
 
 	}

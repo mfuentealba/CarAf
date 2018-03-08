@@ -28,7 +28,12 @@
 						dato = data.nemo + " (NO REGISTRADO)"; 
 						editando = true;
 						correcto = false;
+					} else {
+						dato = data.nemo; 
+						editando = false;
+						correcto = true;
 					}
+					
 					
 				}	
 				
