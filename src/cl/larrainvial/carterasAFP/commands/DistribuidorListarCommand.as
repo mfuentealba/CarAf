@@ -32,6 +32,7 @@ package cl.larrainvial.carterasAFP.commands
 				var distribuidor:DistribuidorVO = new DistribuidorVO();
 				distribuidor.fillAttributes = item;
 				model.arrDistribuidores.addItem(distribuidor);
+				model.objDistribuidores[distribuidor.id] = distribuidor;
 			}
 			
 			

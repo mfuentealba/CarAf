@@ -32,6 +32,7 @@ package cl.larrainvial.carterasAFP.commands
 				var subReg:SubregionVO = new SubregionVO();
 				subReg.fillAttributes = item;
 				model.arrSubregiones.addItem(subReg);
+				model.objSubregiones[subReg.id] = subReg;
 			}
 			
 			

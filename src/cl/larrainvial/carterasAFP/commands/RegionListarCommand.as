@@ -29,9 +29,10 @@ package cl.larrainvial.carterasAFP.commands
 			model.arrRegiones = new ArrayCollection();
 			for each(var item:* in xmlRespuesta.Resultado.row)
 			{				
-				var subReg:RegionVO = new RegionVO();
-				subReg.fillAttributes = item;
-				model.arrRegiones.addItem(subReg);
+				var reg:RegionVO = new RegionVO();
+				reg.fillAttributes = item;
+				model.arrRegiones.addItem(reg);
+				model.objRegiones[reg.id] = reg;
 			}
 			
 			

@@ -113,6 +113,7 @@
 				webPeriodos.send();
 				webTipoCartera.send();
 				webPais.send();
+				webExternos.send();
 				 
 			}
 			

@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14" xmlns:views="cl.larrainvial.carterasAFP.views.*">
 	<mx:Script>
 		<![CDATA[
-			import cl.larrainvial.carterasAFP.components.ConfigUtil;
 			import cl.larrainvial.carterasAFP.events.InstrumentoEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
 			import cl.larrainvial.carterasAFP.vo.InstrumentoVO;
 			
-			import mx.controls.Alert;
-			import mx.controls.Text;
-			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
 			
-			[Bindable] private var instrumento:InstrumentoVO;
 			[Bindable] private var model:ModelLocator = ModelLocator.getInstance(); 
 			
 			protected function fnBuscar():void
@@ -22,219 +17,55 @@
 				ev.dispatch();
 			}
 			
-			protected function fnGuardar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				
-				if(txtISIN.text == ''){
-					Alert.show('Ingrese un valor en el campo "ISIN"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtTipo.text == ''){
-					Alert.show('Ingrese un valor en el campo "Tipo"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtManager.text == ''){
-					Alert.show('Ingrese un valor en el campo "Manager"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtEstilo.text == ''){
-					Alert.show('Ingrese un valor en el campo "Estilo"', 'Atención');
-					return;
-					
-				}
-				if(txtGestion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Gestion"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtSubregion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Subregion"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtPeriodo.text == ''){
-					Alert.show('Ingrese un valor en el campo "Periodo"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtTicker.text == ''){
-					Alert.show('Ingrese un valor en el campo "Ticker"', 'Atención');
-					return;
-					
-				}
-				if(txtDistribuidor.text == ''){
-					Alert.show('Ingrese un valor en el campo "Distribuidor"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtMercado.text == ''){
-					Alert.show('Ingrese un valor en el campo "Mercado"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtCapitalizacion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Capitalizacion"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtRegion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Region"', 'Atención');
-					return;
-					
-				}
-				
-				
-				if(txtAnio.text == ''){
-					Alert.show('Ingrese un valor en el campo "Anio"', 'Atención');
-					return;
-					
-				}
-				
-				
-				
-				
-				if(instrumento){
-					var ev:InstrumentoEvent = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_ACTUALIZAR);
-					ev.callback = fnBuscar;
-					
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato isin="' + txtISIN.text + '" ticker="' + txtTicker.text + '" tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '" id="' + instrumento.id + '"/></Root></XmlIn></Parametros></WSParam>';
-					ev.dispatch();
-				} else {
-					ev = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_GUARDAR);
-					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato isin="' + txtISIN.text + '" ticker="' + txtTicker.text + '" tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>';
-					ev.dispatch();	
-				}
-				
-			}
-			
 			protected function fnSeleccionActualizacion(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
-				this.instrumento = dg.selectedItem as InstrumentoVO;
-				txtISIN.text = instrumento.isin;
-				txtTipo.text = instrumento.tipo;
-				txtManager.text = instrumento.manager;
-				txtEstilo.text = instrumento.estilo;
-				txtGestion.text = instrumento.gestion;
-				txtSubregion.text = instrumento.subregion;
-				txtPeriodo.text = instrumento.periodo;
-				txtTicker.text = instrumento.ticker;
-				txtDistribuidor.text = instrumento.distribuidor;
-				txtMercado.text = instrumento.mercado;
-				txtCapitalizacion.text = instrumento.capitalizacion;
-				txtRegion.text = instrumento.region;
-				txtAnio.text = instrumento.anio;
+				frm.instrumento = dg.selectedItem as InstrumentoVO;
+				frm.txtISIN.text = frm.instrumento.isin;
+				frm.txtTipo.text = frm.instrumento.tipo;
+				frm.txtManager.text = frm.instrumento.manager;
+				frm.txtEstilo.text = frm.instrumento.estilo;
+				frm.txtGestion.text = frm.instrumento.gestion;
+				frm.txtSubregion.text = frm.instrumento.subregion;
+				frm.txtPeriodo.text = frm.instrumento.periodo;
+				frm.txtTicker.text = frm.instrumento.ticker;
+				frm.txtDistribuidor.text = frm.instrumento.distribuidor;
+				frm.txtMercado.text = frm.instrumento.mercado;
+				frm.txtCapitalizacion.text = frm.instrumento.capitalizacion;
+				frm.txtRegion.text = frm.instrumento.region;
+				frm.txtAnio.text = frm.instrumento.anio;
 			}
-			
-			protected function fnLimpiar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				this.instrumento = null;
-				txtISIN.text = '';
-				txtTipo.text = '';
-				txtManager.text = '';
-				txtEstilo.text = '';
-				txtGestion.text = '';
-				txtSubregion.text = '';
-				txtPeriodo.text = '';
-				txtTicker.text = '';
-				txtDistribuidor.text = '';
-				txtMercado.text = '';
-				txtCapitalizacion.text = '';
-				txtRegion.text = '';
-				txtAnio.text = '';
-				dg.selectedItem = null;
-			}
-			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center">
-		<mx:HBox top="0" width="100%" horizontalCenter="0" horizontalAlign="center">
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Año">
-					<mx:TextInput id="txtAnio" focusOut="txtAnio.text = ConfigUtil.fnvalidaAnio(txtAnio.text)" maxChars="4"/>
-				</mx:FormItem>
-				<mx:FormItem label="ISIN">
-					<mx:TextInput id="txtISIN" focusOut="txtISIN.text = ConfigUtil.fnFormatoNombres(txtISIN.text)" maxChars="20"/>
-				</mx:FormItem>
-				<mx:FormItem label="Tipo">
-					<mx:TextInput id="txtTipo" focusOut="txtTipo.text = ConfigUtil.fnFormatoNombres(txtTipo.text)" maxChars="20"/>
-				</mx:FormItem>
-				<mx:FormItem label="Manager">
-					<mx:TextInput id="txtManager" focusOut="txtManager.text = ConfigUtil.fnFormatoNombres(txtManager.text)" maxChars="50"/>
-				</mx:FormItem>
-				<mx:FormItem label="Estilo">
-					<mx:TextInput id="txtEstilo" focusOut="txtEstilo.text = ConfigUtil.fnFormatoNombres(txtEstilo.text)" maxChars="15"/>
-				</mx:FormItem>
-				<mx:FormItem label="Gestión">
-					<mx:TextInput id="txtGestion" focusOut="txtGestion.text = ConfigUtil.fnFormatoNombres(txtGestion.text)" maxChars="15"/>
-				</mx:FormItem>
-				<mx:FormItem label="Subregión">
-					<mx:TextInput id="txtSubregion" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtSubregion.text)" maxChars="30"/>
-				</mx:FormItem>
-				
-			</mx:Form>
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Periodo">
-					<mx:TextInput id="txtPeriodo" focusOut="txtPeriodo.text = ConfigUtil.fnvalidaFormatoPeriodo(txtPeriodo.text)" maxChars="7"/>
-				</mx:FormItem>
-				<mx:FormItem label="Ticker">
-					<mx:TextInput id="txtTicker" focusOut="txtTicker.text = ConfigUtil.fnFormatoNombres(txtTicker.text)" maxChars="20"/>
-				</mx:FormItem>
-				<mx:FormItem label="Distribuidor">
-					<mx:TextInput id="txtDistribuidor" focusOut="txtDistribuidor.text = ConfigUtil.fnFormatoNombres(txtDistribuidor.text)" maxChars="50"/>
-				</mx:FormItem>
-				<mx:FormItem label="Mercado">
-					<mx:TextInput id="txtMercado" focusOut="txtMercado.text = ConfigUtil.fnFormatoNombres(txtMercado.text)" maxChars="20"/>
-				</mx:FormItem>
-				<mx:FormItem label="Capitalización">
-					<mx:TextInput id="txtCapitalizacion" focusOut="txtCapitalizacion.text = ConfigUtil.fnFormatoNombres(txtCapitalizacion.text)" maxChars="70"/>
-				</mx:FormItem>
-				<mx:FormItem label="Región">
-					<mx:TextInput id="txtRegion" focusOut="txtRegion.text = ConfigUtil.fnFormatoNombres(txtRegion.text)" maxChars="25"/>
-				</mx:FormItem>
-				
-			</mx:Form>
-		</mx:HBox>
+		<views:FormInstrumento id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}"/>
 			
-		<mx:HBox>
-			 <mx:Button label="{instrumento ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-			 <mx:Button label="Nuevo" click="fnLimpiar(event)"/>			
-		 </mx:HBox>
-		<mx:HBox horizontalAlign="right" width="100%">
+		
+		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15">
 			<mx:Button label="Buscar" click="fnBuscar()"/>	
 		</mx:HBox>
-		<mx:DataGrid id="dg" width="97%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrInstrumentos}">
-			<mx:columns>
-				<mx:DataGridColumn dataField="anio" headerText="Año"/>						
-				<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
-				<mx:DataGridColumn dataField="isin" headerText="Isin"/>		
-				<mx:DataGridColumn dataField="ticker" headerText="Ticker"/>
-				<mx:DataGridColumn dataField="tipo" headerText="Tipo"/>
-				<mx:DataGridColumn dataField="distribuidor" headerText="Distribuidor"/>
-				<mx:DataGridColumn dataField="manager" headerText="Manager"/>
-				<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
-				<mx:DataGridColumn dataField="estilo" headerText="Estilo"/>
-				<mx:DataGridColumn dataField="capitalizacion" headerText="Capitalización"/>
-				<mx:DataGridColumn dataField="gestion" headerText="Gestión"/>
-				<mx:DataGridColumn dataField="region" headerText="Región"/>
-				<mx:DataGridColumn dataField="subregion" headerText="Subregión"/>
-			</mx:columns>
-		</mx:DataGrid>
+		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
+			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar()"
+						 dataProvider="{model.arrInstrumentos}"
+						 itemClick="fnSeleccionActualizacion(event)">
+				<mx:columns>
+					<mx:DataGridColumn dataField="anio" headerText="Año"/>						
+					<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
+					<mx:DataGridColumn dataField="isin" headerText="Isin"/>		
+					<mx:DataGridColumn dataField="ticker" headerText="Ticker"/>
+					<mx:DataGridColumn dataField="tipo" headerText="Tipo"/>
+					<mx:DataGridColumn dataField="distribuidor" headerText="Distribuidor"/>
+					<mx:DataGridColumn dataField="manager" headerText="Manager"/>
+					<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
+					<mx:DataGridColumn dataField="estilo" headerText="Estilo"/>
+					<mx:DataGridColumn dataField="capitalizacion" headerText="Capitalización"/>
+					<mx:DataGridColumn dataField="gestion" headerText="Gestión"/>
+					<mx:DataGridColumn dataField="region" headerText="Región"/>
+					<mx:DataGridColumn dataField="subregion" headerText="Subregión"/>
+				</mx:columns>
+			</mx:DataGrid>	
+		</mx:HBox>
+		
 		
 	</mx:VBox>
 	

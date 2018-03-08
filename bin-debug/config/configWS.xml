@@ -1,8 +1,8 @@
 <configWS>
 	<WebService>
 			<id>WSCarterasAFP</id>
-			<wsdl>http://localhost:5789/WSCarterasAFP/Service.asmx?wsdl</wsdl>
-			<uri>http://localhost:5789/WSCarterasAFP/Service.asmx</uri> 
+			<wsdl>http://localhost:36063/WSCarterasAFP/Service.asmx?wsdl</wsdl>
+			<uri>http://localhost:36063/WSCarterasAFP/Service.asmx</uri> 
 			<!-- <wsdl>http://wsetrading.larrainvial.com/WSOrderCaptureT24/OrderCapture.asmx?wsdl</wsdl>
 			<uri>http://wsetrading.larrainvial.com/WSOrderCaptureT24/OrderCapture.asmx</uri> --> 
 			<!-- <wsdl>http://beta.larrainvial.com/Webservices/WSOrderCapture/OrderCapture.asmx?wsdl</wsdl>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14" xmlns:views="cl.larrainvial.carterasAFP.views.*">
 	<mx:Script>
 		<![CDATA[
 			import cl.larrainvial.carterasAFP.components.ConfigUtil;
@@ -22,106 +22,37 @@
 				ev.dispatch();
 			}
 			
-			protected function fnGuardar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				
-				if(txtAnio.text == ''){
-					Alert.show('Ingrese un valor en el campo "Año"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtNombre.text == ''){
-					Alert.show('Ingrese un valor en el campo "Nombre"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtPeriodo.text == ''){
-					Alert.show('Ingrese un valor en el campo "Periodo"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtDistribuidor.text == ''){
-					Alert.show('Ingrese un valor en el campo "Distribuidor"', 'Atención');
-					return;
-					
-				}
-				if(manager){
-					var ev:ManagerEvent = new ManagerEvent(ManagerEvent.EVENT_MANAGER_ACTUALIZAR);
-					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtNombre.text + '" distribuidor="' + txtDistribuidor.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '" id="' + manager.id + '" /></Root></XmlIn></Parametros></WSParam>'
-					ev.dispatch();
-				} else {
-					ev = new ManagerEvent(ManagerEvent.EVENT_MANAGER_GUARDAR);
-					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtNombre.text + '" distribuidor="' + txtDistribuidor.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>'
-					ev.dispatch();	
-				}
-				
-			}
 			
 			protected function fnSeleccionActualizacion(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
-				this.manager = dg.selectedItem as ManagerVO;
-				txtAnio.text = manager.anio;
-				txtNombre.text = manager.nombre;
-				txtDistribuidor.text = manager.distribuidor;
-				txtPeriodo.text = manager.periodo;
+				frm.manager = dg.selectedItem as ManagerVO;
+				frm.txtAnio.text = manager.anio;
+				frm.txtNombre.text = manager.nombre;
+				frm.txtDistribuidor.text = manager.distribuidor;
+				frm.txtPeriodo.text = manager.periodo;
 			}
 			
-			protected function fnLimpiar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				this.manager = null;
-				txtAnio.text = '';
-				txtNombre.text = '';
-				txtDistribuidor.text = '';
-				txtPeriodo.text = '';
-				dg.selectedItem = null;
-			}
+			
 			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center">
-		<mx:HBox top="0" width="100%" horizontalCenter="0" horizontalAlign="center">
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Año">
-					<mx:TextInput id="txtAnio" focusOut="txtAnio.text = ConfigUtil.fnvalidaAnio(txtAnio.text)" maxChars="4" restrict="0-9"/>
-				</mx:FormItem>
-				<mx:FormItem label="Nombre">
-					<mx:TextInput id="txtNombre" focusOut="txtNombre.text = ConfigUtil.fnFormatoNombres(txtNombre.text)" maxChars="50"/>
-				</mx:FormItem>
-			</mx:Form>
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Periodo">
-					<mx:TextInput id="txtPeriodo" focusOut="txtPeriodo.text = ConfigUtil.fnvalidaFormatoPeriodo(txtPeriodo.text)" maxChars="7" restrict="0-9\-"/>
-				</mx:FormItem>
-				<mx:FormItem label="Distribuidor">
-					<mx:TextInput id="txtDistribuidor" focusOut="txtDistribuidor.text = ConfigUtil.fnFormatoNombres(txtDistribuidor.text)" maxChars="50"/>
-				</mx:FormItem>
-				
-				
-			</mx:Form>
-		</mx:HBox>
-		<mx:HBox>
-			<mx:Button label="{manager ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-			<mx:Button label="Nuevo" click="fnLimpiar(event)"/>			
-		</mx:HBox>
+		<views:FormManager id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}"/>
 		<mx:HBox horizontalAlign="right" width="100%">
 			<mx:Button label="Buscar" click="fnBuscar()"/>	
 		</mx:HBox>
-		<mx:DataGrid id="dg" width="97%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrManagers}">
-			<mx:columns>
-				<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
-				<mx:DataGridColumn dataField="anio" headerText="Año"/>
-				<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
-				<mx:DataGridColumn dataField="distribuidor" headerText="Distribuidor"/>
-			</mx:columns>
-		</mx:DataGrid>
+		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
+			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrManagers}">
+				<mx:columns>
+					<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
+					<mx:DataGridColumn dataField="anio" headerText="Año"/>
+					<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
+					<mx:DataGridColumn dataField="distribuidor" headerText="Distribuidor"/>
+				</mx:columns>
+			</mx:DataGrid>	
+		</mx:HBox>
+		
 		
 	</mx:VBox>
 	

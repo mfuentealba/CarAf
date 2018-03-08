@@ -32,6 +32,7 @@ package cl.larrainvial.carterasAFP.commands
 				var instrumento:InstrumentoVO = new InstrumentoVO();
 				instrumento.fillAttributes = item;
 				model.arrInstrumentos.addItem(instrumento);
+				model.objInstrumentos[instrumento.id] = instrumento; 
 			}
 			
 			

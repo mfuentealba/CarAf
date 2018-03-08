@@ -32,6 +32,7 @@ package cl.larrainvial.carterasAFP.commands
 				var manager:ManagerVO = new ManagerVO();
 				manager.fillAttributes = item;
 				model.arrManagers.addItem(manager);
+				model.objManagers[manager.id] = manager;
 			}
 			
 			

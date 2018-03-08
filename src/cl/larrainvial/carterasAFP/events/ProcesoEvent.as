@@ -7,15 +7,17 @@ package cl.larrainvial.carterasAFP.events
 	
 	
 	
-	public class ImportarEvent extends CairngormEvent
+	public class ProcesoEvent extends CairngormEvent
 	{
 		public var callback:Function;
-		public static const EVENT_IMPORTAR:String = "Importar";
+		public static const EVENT_PROCESO:String = "Proceso";
 		
-		public function ImportarEvent(xml: String)
+		public var xmlparam:String;
+		
+		public function ProcesoEvent()
 		{
-			super(EVENT_IMPORTAR);
-			this.data = xml;
+			super(EVENT_PROCESO);
+			
 		}
 	}
 }

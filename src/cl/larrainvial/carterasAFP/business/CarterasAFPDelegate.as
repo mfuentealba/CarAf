@@ -284,7 +284,23 @@ package cl.larrainvial.carterasAFP.business
 				Alert.show(err.getStackTrace());
 				
 			}
-		}	
+		}
+		
+		
+		public function WMProcesar():void
+		{
+			try
+			{		
+				var token : AsyncToken;				
+				token = service.sp_cartera_agregada_ejecutar();	
+				token.addResponder(responder);
+			}
+			catch (err:Error)
+			{
+				Alert.show(err.getStackTrace());
+				
+			}
+		}
 		
 	}
 }

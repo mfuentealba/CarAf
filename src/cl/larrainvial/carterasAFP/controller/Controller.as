@@ -3,12 +3,14 @@ package cl.larrainvial.carterasAFP.controller
 	import cl.larrainvial.carterasAFP.commands.DistribuidorActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.DistribuidorGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.DistribuidorListarCommand;
+	import cl.larrainvial.carterasAFP.commands.ImportarCommand;
 	import cl.larrainvial.carterasAFP.commands.InstrumentoActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.InstrumentoGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.InstrumentoListarCommand;
 	import cl.larrainvial.carterasAFP.commands.ManagerActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.ManagerGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.ManagerListarCommand;
+	import cl.larrainvial.carterasAFP.commands.ProcesoCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionListarCommand;
@@ -16,8 +18,10 @@ package cl.larrainvial.carterasAFP.controller
 	import cl.larrainvial.carterasAFP.commands.SubregionGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionListarCommand;
 	import cl.larrainvial.carterasAFP.events.DistribuidorEvent;
+	import cl.larrainvial.carterasAFP.events.ImportarEvent;
 	import cl.larrainvial.carterasAFP.events.InstrumentoEvent;
 	import cl.larrainvial.carterasAFP.events.ManagerEvent;
+	import cl.larrainvial.carterasAFP.events.ProcesoEvent;
 	import cl.larrainvial.carterasAFP.events.RegionEvent;
 	import cl.larrainvial.carterasAFP.events.SubregionEvent;
 	
@@ -51,6 +55,8 @@ package cl.larrainvial.carterasAFP.controller
 			addCommand(DistribuidorEvent.EVENT_DISTRIBUIDOR_LISTAR, DistribuidorListarCommand);
 			addCommand(DistribuidorEvent.EVENT_DISTRIBUIDOR_GUARDAR, DistribuidorGuardarCommand);
 			addCommand(DistribuidorEvent.EVENT_DISTRIBUIDOR_ACTUALIZAR, DistribuidorActualizarCommand);
+			addCommand(ImportarEvent.EVENT_IMPORTAR, ImportarCommand);
+			addCommand(ProcesoEvent.EVENT_PROCESO, ProcesoCommand);
 			
        	}
     }

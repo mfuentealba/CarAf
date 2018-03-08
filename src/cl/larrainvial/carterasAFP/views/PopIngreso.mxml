@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="80%" height="60%" title="Resumen importación">
+	
+	<mx:Script>
+		<![CDATA[
+			import cl.larrainvial.carterasAFP.components.RenderProcesoDistribuidor;
+			import cl.larrainvial.carterasAFP.components.RenderProcesoManager;
+			import cl.larrainvial.carterasAFP.components.RenderProcesoNemo;
+			import cl.larrainvial.carterasAFP.components.RenderProcesoRegion;
+			import cl.larrainvial.carterasAFP.components.RenderProcesoSubregion;
+			import cl.larrainvial.carterasAFP.model.ModelLocator;
+			
+			import mx.controls.Alert;
+			import mx.controls.LinkButton;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			
+			[Bindable] private var model:ModelLocator = ModelLocator.getInstance();
+			
+			protected function fnConfirmar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				PopUpManager.removePopUp(this);
+				Alert.show('Guardado con éxito. Los datos guardados no pueden ser modificados', 'Datos registrados'); 
+			}
+			
+			protected function fnMantenedor(event:ListEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.itemRenderer is RenderProcesoNemo){
+					
+				} else if(event.itemRenderer is RenderProcesoManager){
+					
+				} else if(event.itemRenderer is RenderProcesoDistribuidor){
+					
+				} else if(event.itemRenderer is RenderProcesoRegion){
+					
+				} else if(event.itemRenderer is RenderProcesoSubregion){
+					
+				}
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:VBox width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+		<mx:DataGrid width="100%" height="100%" dataProvider="{model.arrProceso}" itemClick="fnMantenedor(event)">
+			<mx:columns>
+				<mx:DataGridColumn dataField="nemo" headerText="Nemotécnico" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoNemo" width="300"/>
+				<mx:DataGridColumn dataField="instrumento.tipo" headerText="Tipo" width="100"/>
+				<mx:DataGridColumn dataField="distribuidor.distribuidor" headerText="Distribuidor" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoDistribuidor" width="100"/>
+				<mx:DataGridColumn dataField="manager.distribuidor" headerText="Manager" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoManager" width="100"/>
+				<mx:DataGridColumn dataField="instrumento.mercado" headerText="Mercado" width="100"/>
+				<mx:DataGridColumn dataField="instrumento.estilo" headerText="Estilo" width="100"/>
+				<mx:DataGridColumn dataField="instrumento.capitalizacion" headerText="Capitalización" width="100"/>
+				<mx:DataGridColumn dataField="instrumento.gestion" headerText="Gestión" width="100"/>
+				<mx:DataGridColumn dataField="region.nombre" headerText="Región" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoRegion" width="100"/>
+				<mx:DataGridColumn dataField="subregion.nombre" headerText="Subregión" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoSubregion" width="100"/>
+				<mx:DataGridColumn dataField="fondoA" headerText="Fondo A" width="50"/>
+				<mx:DataGridColumn dataField="fondoB" headerText="Fondo B" width="50"/>
+				<mx:DataGridColumn dataField="fondoC" headerText="Fondo C" width="50"/>
+				<mx:DataGridColumn dataField="fondoD" headerText="Fondo D" width="50"/>
+				<mx:DataGridColumn dataField="fondoE" headerText="Fondo E" width="50"/>
+				
+				
+				<mx:DataGridColumn dataField="anio" headerText="Año" width="50"/>
+				
+				<mx:DataGridColumn dataField="precio_actual" headerText="Precio Actual" width="50"/>
+				<mx:DataGridColumn dataField="precio_anterior" headerText="Precio Pasado" width="50"/>
+				<mx:DataGridColumn dataField="nro_cuotas" headerText="Cuotas" width="50"/>
+				<mx:DataGridColumn dataField="diferencia_precio" headerText="Dif. Precios" width="50"/>	
+			</mx:columns>
+			
+		</mx:DataGrid>	
+		<mx:HBox horizontalAlign="center">
+			<mx:Button label="Guardar" click="fnConfirmar(event)"/>
+			<mx:Button label="Reprocesar"/>
+		</mx:HBox>
+	</mx:VBox>
+	
+</mx:Panel>
