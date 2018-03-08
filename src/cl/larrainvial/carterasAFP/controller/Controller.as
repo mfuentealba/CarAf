@@ -11,9 +11,12 @@ package cl.larrainvial.carterasAFP.controller
 	import cl.larrainvial.carterasAFP.commands.ManagerGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.ManagerListarCommand;
 	import cl.larrainvial.carterasAFP.commands.ProcesoCommand;
+	import cl.larrainvial.carterasAFP.commands.ProcesoConfirmacionCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.RegionListarCommand;
+	import cl.larrainvial.carterasAFP.commands.ReporteCarteraCommand;
+	import cl.larrainvial.carterasAFP.commands.ReportePreciosCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionListarCommand;
@@ -23,6 +26,7 @@ package cl.larrainvial.carterasAFP.controller
 	import cl.larrainvial.carterasAFP.events.ManagerEvent;
 	import cl.larrainvial.carterasAFP.events.ProcesoEvent;
 	import cl.larrainvial.carterasAFP.events.RegionEvent;
+	import cl.larrainvial.carterasAFP.events.ReporteEvent;
 	import cl.larrainvial.carterasAFP.events.SubregionEvent;
 	
 	import com.adobe.cairngorm.control.FrontController;
@@ -57,6 +61,11 @@ package cl.larrainvial.carterasAFP.controller
 			addCommand(DistribuidorEvent.EVENT_DISTRIBUIDOR_ACTUALIZAR, DistribuidorActualizarCommand);
 			addCommand(ImportarEvent.EVENT_IMPORTAR, ImportarCommand);
 			addCommand(ProcesoEvent.EVENT_PROCESO, ProcesoCommand);
+			addCommand(ProcesoEvent.EVENT_GUARDAR_PROCESO, ProcesoConfirmacionCommand);
+			
+			//addCommand(ReporteEvent.EVENT_EXCEL, ProcesoCommand);
+			addCommand(ReporteEvent.EVENT_REPORTE_CARTERA_LISTAR, ReporteCarteraCommand);
+			addCommand(ReporteEvent.EVENT_REPORTE_PRECIO_LISTAR, ReportePreciosCommand);
 			
        	}
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" horizontalAlign="center">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="center" paddingBottom="5">
 	<mx:Script>
 		<![CDATA[
 			import cl.larrainvial.carterasAFP.components.ConfigUtil;
@@ -95,7 +95,7 @@
 		</mx:Form>
 	</mx:HBox>
 	<mx:HBox>
-		<mx:Button label="{manager ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-		<mx:Button label="Nuevo" click="fnLimpiar(event)"/>			
+		<mx:Button width="70" label="{manager ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
+		<mx:Button width="70" label="Nuevo" click="fnLimpiar(event)"/>			
 	</mx:HBox>
 </mx:VBox>

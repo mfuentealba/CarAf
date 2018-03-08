@@ -3,24 +3,34 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import cl.larrainvial.carterasAFP.events.ReporteEvent;
 			protected function fnExcel(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				
 			}
+			
+			protected function fnBuscar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var ev:ReporteEvent = new ReporteEvent(ReporteEvent.EVENT_REPORTE_CARTERA_LISTAR);
+				ev.dispatch();
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:HBox paddingLeft="20" paddingTop="120" height="100%" horizontalGap="50" paddingBottom="50">
 		<mx:DataGrid width="926" height="100%">
 			<mx:columns>			
-				<mx:DataGridColumn dataField="col2" headerText="ISIN/Ticker"/>
-				<mx:DataGridColumn dataField="col3" headerText="Posición AFP"/>
-				<mx:DataGridColumn dataField="col2" headerText="Posición LV"/>
-				<mx:DataGridColumn dataField="col3" headerText="Diferencia Carteras"/>
+				<mx:DataGridColumn dataField="nemo" headerText="ISIN/Ticker"/>
+				<mx:DataGridColumn dataField="posicion_afp" headerText="Posición AFP"/>
+				<mx:DataGridColumn dataField="posicion_lv" headerText="Posición LV"/>
+				<mx:DataGridColumn dataField="diferencia" headerText="Diferencia Carteras"/>
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:Canvas>
 			<mx:Button top="50" width="88" height="34" label="Excel" click="fnExcel(event)"/>	
+			<mx:Button y="10" left="0" right="0" height="32" label="Buscar" click="fnBuscar(event)"/>
 		</mx:Canvas>
 			
 	</mx:HBox>

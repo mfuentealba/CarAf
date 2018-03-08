@@ -13,7 +13,7 @@ package cl.larrainvial.carterasAFP.commands
 	import mx.managers.CursorManager;
 	import mx.rpc.IResponder;
 	
-	public class ProcesoCommand implements ICommand, IResponder
+	public class ProcesoConfirmacionCommand implements ICommand, IResponder
 	{
 		// attributes ============================
 	    [Bindable]
@@ -29,7 +29,7 @@ package cl.larrainvial.carterasAFP.commands
 		public function execute(event:CairngormEvent) : void
 		{	
 			evento = ProcesoEvent(event);
-			//_Delegate.WMProcesar();
+			_Delegate.WMProcesarConfirmar(evento.xmlparam);
 			
 			result(null)
 		}

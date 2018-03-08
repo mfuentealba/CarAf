@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="520" fontSize="14" xmlns:views="cl.larrainvial.carterasAFP.views.*">
 	<mx:Script>
 		<![CDATA[
 			import cl.larrainvial.carterasAFP.components.ConfigUtil;
@@ -22,96 +22,36 @@
 				ev.dispatch();
 			}
 			
-			protected function fnGuardar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				
-				if(txtSubregion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Subregión"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtMercado.text == ''){
-					Alert.show('Ingrese un valor en el campo "Mercado"', 'Atención');
-					return;
-					
-				}
-				
-				if(txtRegion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Región"', 'Atención');
-					return;
-					
-				}
-				if(subregion){
-					var ev:SubregionEvent = new SubregionEvent(SubregionEvent.EVENT_SUBREGION_ACTUALIZAR);
-					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtSubregion.text + '" mercado="' + txtMercado.text + '" region="' + txtRegion.text + '" id="' + subregion.id + '" /></Root></XmlIn></Parametros></WSParam>'
-					ev.dispatch();
-				} else {
-					ev = new SubregionEvent(SubregionEvent.EVENT_SUBREGION_GUARDAR);
-					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtSubregion.text + '" mercado="' + txtMercado.text + '" region="' + txtRegion.text + '" /></Root></XmlIn></Parametros></WSParam>'
-					ev.dispatch();	
-				}
-				
-			}
+			
 			
 			protected function fnSeleccionActualizacion(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
 				this.subregion = dg.selectedItem as SubregionVO;
-				txtMercado.text = subregion.mercado;
-				txtRegion.text = subregion.region;
-				txtSubregion.text = subregion.nombre;
+				frm.txtMercado.text = subregion.mercado;
+				frm.txtRegion.text = subregion.region;
+				frm.txtSubregion.text = subregion.nombre;
 			}
 			
-			protected function fnLimpiar(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				this.subregion = null;
-				txtMercado.text = '';
-				txtRegion.text = '';
-				txtSubregion.text = '';
-				dg.selectedItem = null;
-			}
+			
 			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center">
-		<mx:HBox top="0" width="100%" horizontalCenter="0" horizontalAlign="center">
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Nombre">
-					<mx:TextInput id="txtSubregion" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtSubregion.text)" maxChars="30"/>
-				</mx:FormItem>
-				<mx:FormItem label="Mercado">
-					<mx:TextInput id="txtMercado" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtMercado.text)" maxChars="20"/>
-				</mx:FormItem>
-			</mx:Form>
-			<mx:Form width="50%" verticalGap="30">
-				<mx:FormItem label="Región">
-					<mx:TextInput id="txtRegion" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtRegion.text)" maxChars="25"/>
-				</mx:FormItem>
-				
-				
-			</mx:Form>
-		</mx:HBox>
-			
-		<mx:HBox>
-			<mx:Button label="{subregion ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-			<mx:Button label="Nuevo" click="fnLimpiar(event)"/>			
-		</mx:HBox>
-		<mx:HBox horizontalAlign="right" width="100%">
+		<views:FormSubregion id="frm" width="100%" dg="{dg}" fnBuscar="{fnBuscar}"/>
+		<mx:HBox horizontalAlign="right" width="100%" paddingRight="15">
 			<mx:Button label="Buscar" click="fnBuscar()"/>	
 		</mx:HBox>
+		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
+			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrSubregiones}">
+				<mx:columns>
+					<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
+					<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
+					<mx:DataGridColumn dataField="region" headerText="Región"/>
+				</mx:columns>
+			</mx:DataGrid>	
+		</mx:HBox>
 		
-		<mx:DataGrid id="dg" width="97%" creationComplete="fnBuscar()" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrSubregiones}">
-			<mx:columns>
-				<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
-				<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
-				<mx:DataGridColumn dataField="region" headerText="Región"/>
-			</mx:columns>
-		</mx:DataGrid>
 		
 	</mx:VBox>
 	

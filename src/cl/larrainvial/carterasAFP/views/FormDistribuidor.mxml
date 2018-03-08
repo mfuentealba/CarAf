@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="center" paddingBottom="5">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" horizontalAlign="center" paddingBottom="5">
 	<mx:Script>
 		<![CDATA[
 			import cl.larrainvial.carterasAFP.components.ConfigUtil;
-			import cl.larrainvial.carterasAFP.events.InstrumentoEvent;
+			import cl.larrainvial.carterasAFP.events.DistribuidorEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
-			import cl.larrainvial.carterasAFP.vo.InstrumentoVO;
+			import cl.larrainvial.carterasAFP.vo.DistribuidorVO;
 			
 			import mx.controls.Alert;
 			import mx.controls.DataGrid;
@@ -13,22 +13,16 @@
 			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
 			
-			[Bindable] public var instrumento:InstrumentoVO;
-			[Bindable] private var model:ModelLocator = ModelLocator.getInstance(); 
+			[Bindable] private var distribuidor:DistribuidorVO;
+			[Bindable] private var model:ModelLocator = ModelLocator.getInstance();
 			public var dg:DataGrid;
 			public var fnBuscar:Function;
-			
 			
 			
 			protected function fnGuardar(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				
-				if(txtISIN.text == ''){
-					Alert.show('Ingrese un valor en el campo "ISIN"', 'Atención');
-					return;
-					
-				}
 				
 				if(txtTipo.text == ''){
 					Alert.show('Ingrese un valor en el campo "Tipo"', 'Atención');
@@ -65,11 +59,6 @@
 					
 				}
 				
-				if(txtTicker.text == ''){
-					Alert.show('Ingrese un valor en el campo "Ticker"', 'Atención');
-					return;
-					
-				}
 				if(txtDistribuidor.text == ''){
 					Alert.show('Ingrese un valor en el campo "Distribuidor"', 'Atención');
 					return;
@@ -104,35 +93,31 @@
 				
 				
 				
-				if(instrumento){
-					var ev:InstrumentoEvent = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_ACTUALIZAR);
+				if(distribuidor){
+					var ev:DistribuidorEvent = new DistribuidorEvent(DistribuidorEvent.EVENT_DISTRIBUIDOR_ACTUALIZAR);
 					ev.callback = fnBuscar;
 					
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato isin="' + txtISIN.text + '" ticker="' + txtTicker.text + '" tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '" id="' + instrumento.id + '"/></Root></XmlIn></Parametros></WSParam>';
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '" id="' + distribuidor.id + '"/></Root></XmlIn></Parametros></WSParam>';
 					ev.dispatch();
 				} else {
-					ev = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_GUARDAR);
+					ev = new DistribuidorEvent(DistribuidorEvent.EVENT_DISTRIBUIDOR_GUARDAR);
 					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato isin="' + txtISIN.text + '" ticker="' + txtTicker.text + '" tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>';
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato tipo="' + txtTipo.text + '" distribuidor="' + txtDistribuidor.text + '" manager="' + txtManager.text + '" mercado="' + txtMercado.text + '" estilo="' + txtEstilo.text + '" capitalizacion="' + txtCapitalizacion.text + '" gestion="' + txtGestion.text + '" region="' + txtRegion.text + '" subregion="' + txtSubregion.text + '" anio="' + txtAnio.text + '" periodo="' + txtPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>';
 					ev.dispatch();	
 				}
 				
 			}
 			
-			
-			
-			protected function fnLimpiar(event:MouseEvent):void
+		protected function fnLimpiar(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				this.instrumento = null;
-				txtISIN.text = '';
+				this.distribuidor = null;
 				txtTipo.text = '';
 				txtManager.text = '';
 				txtEstilo.text = '';
 				txtGestion.text = '';
 				txtSubregion.text = '';
 				txtPeriodo.text = '';
-				txtTicker.text = '';
 				txtDistribuidor.text = '';
 				txtMercado.text = '';
 				txtCapitalizacion.text = '';
@@ -147,9 +132,6 @@
 		<mx:Form width="50%" verticalGap="30">
 			<mx:FormItem label="Año">
 				<mx:TextInput id="txtAnio" focusOut="txtAnio.text = ConfigUtil.fnvalidaAnio(txtAnio.text)" maxChars="4"/>
-			</mx:FormItem>
-			<mx:FormItem label="ISIN">
-				<mx:TextInput id="txtISIN" focusOut="txtISIN.text = ConfigUtil.fnFormatoNombres(txtISIN.text)" maxChars="20"/>
 			</mx:FormItem>
 			<mx:FormItem label="Tipo">
 				<mx:TextInput id="txtTipo" focusOut="txtTipo.text = ConfigUtil.fnFormatoNombres(txtTipo.text)" maxChars="20"/>
@@ -172,9 +154,6 @@
 			<mx:FormItem label="Periodo">
 				<mx:TextInput id="txtPeriodo" focusOut="txtPeriodo.text = ConfigUtil.fnvalidaFormatoPeriodo(txtPeriodo.text)" maxChars="7"/>
 			</mx:FormItem>
-			<mx:FormItem label="Ticker">
-				<mx:TextInput id="txtTicker" focusOut="txtTicker.text = ConfigUtil.fnFormatoNombres(txtTicker.text)" maxChars="20"/>
-			</mx:FormItem>
 			<mx:FormItem label="Distribuidor">
 				<mx:TextInput id="txtDistribuidor" focusOut="txtDistribuidor.text = ConfigUtil.fnFormatoNombres(txtDistribuidor.text)" maxChars="50"/>
 			</mx:FormItem>
@@ -190,8 +169,9 @@
 			
 		</mx:Form>
 	</mx:HBox>
+	
 	<mx:HBox>
-		<mx:Button width="70" label="{instrumento ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
+		<mx:Button width="70" label="{distribuidor ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
 		<mx:Button width="70" label="Nuevo" click="fnLimpiar(event)"/>			
 	</mx:HBox>
 </mx:VBox>

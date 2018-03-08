@@ -302,5 +302,20 @@ package cl.larrainvial.carterasAFP.business
 			}
 		}
 		
+		public function WMProcesarConfirmar(xmlParam:String):void
+		{
+			try
+			{		
+				var token : AsyncToken;				
+				token = service.sp_cartera_agregada_ejecutar();	
+				token.addResponder(responder);
+			}
+			catch (err:Error)
+			{
+				Alert.show(err.getStackTrace());
+				
+			}
+		}
+		
 	}
 }

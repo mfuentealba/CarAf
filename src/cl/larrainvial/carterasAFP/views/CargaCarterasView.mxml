@@ -170,7 +170,7 @@
 			protected function fnEjecutarProceso(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				var ev:ProcesoEvent = new ProcesoEvent();
+				var ev:ProcesoEvent = new ProcesoEvent(ProcesoEvent.EVENT_PROCESO);
 				ev.callback = fnResult;
 				ev.dispatch();
 			}
@@ -178,20 +178,28 @@
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" horizontalGap="0">
-		<mx:Canvas width="50%" height="119">
-			<mx:Label y="31" horizontalCenter="-295" text="Periodo"/>
-			<mx:Label y="71" horizontalCenter="-281" text="Tipo Cartera"/>
-			<mx:ComboBox id="cbPeriodo" y="29" horizontalCenter="0" labelField="label" dataProvider="{model.arrPeriodos}"></mx:ComboBox>
-			<mx:ComboBox id="cbTipoCartera" y="69" horizontalCenter="0" dataProvider="{model.arrTipoCartera}"></mx:ComboBox>	
-		</mx:Canvas>
-		<mx:Canvas width="50%" height="119">
-			<mx:Label x="250" y="31" text="País"/>
-			<mx:Label x="250" y="71" text="Archivo"/>
-			<mx:ComboBox id="cbPais" horizontalCenter="0" y="29" labelField="label" dataProvider="{model.arrPais}"></mx:ComboBox>
-			<mx:TextInput id="txtNomArchivo" y="69" horizontalCenter="0" editable="false" click="fnBuscarArchivo(event)"/>
-			<mx:Button x="599" y="69" label="Examinar" click="fnBuscarArchivo(event)"/>
-			<mx:Button x="705" y="68" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
-		</mx:Canvas>	
+		<mx:Form width="50%" verticalGap="30">
+			<mx:FormItem label="Periodo">
+				<mx:ComboBox id="cbPeriodo" y="29" horizontalCenter="0" labelField="label" dataProvider="{model.arrPeriodos}"></mx:ComboBox>	
+			</mx:FormItem>
+			<mx:FormItem label="Tipo Cartera">
+				<mx:ComboBox id="cbTipoCartera" y="69" horizontalCenter="0" dataProvider="{model.arrTipoCartera}"></mx:ComboBox>
+			</mx:FormItem>
+		</mx:Form>
+		<mx:Form width="50%" verticalGap="30">
+			<mx:FormItem label="País">
+				<mx:ComboBox id="cbPais" horizontalCenter="0" y="29" labelField="label" dataProvider="{model.arrPais}"></mx:ComboBox>	
+			</mx:FormItem>
+			<mx:FormItem label="Archivo">
+				<mx:HBox>
+					<mx:TextInput id="txtNomArchivo" y="69" horizontalCenter="0" editable="false" click="fnBuscarArchivo(event)"/>
+					<mx:Button x="599" y="69" label="Examinar" click="fnBuscarArchivo(event)"/>
+					<mx:Button x="705" y="68" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
+				</mx:HBox>
+				
+			</mx:FormItem>
+		</mx:Form>
+			
 	</mx:HBox>
 	
 	

@@ -8,6 +8,7 @@
 			import cl.larrainvial.carterasAFP.components.RenderProcesoNemo;
 			import cl.larrainvial.carterasAFP.components.RenderProcesoRegion;
 			import cl.larrainvial.carterasAFP.components.RenderProcesoSubregion;
+			import cl.larrainvial.carterasAFP.events.ProcesoEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
 			
 			import mx.controls.Alert;
@@ -21,6 +22,9 @@
 			{
 				// TODO Auto-generated method stub
 				PopUpManager.removePopUp(this);
+				var ev:ProcesoEvent = new ProcesoEvent(ProcesoEvent.EVENT_PROCESO);
+				//ev.callback = fnResult;
+				ev.dispatch();
 				Alert.show('Guardado con éxito. Los datos guardados no pueden ser modificados', 'Datos registrados'); 
 			}
 			
@@ -28,15 +32,50 @@
 			{
 				// TODO Auto-generated method stub
 				if(event.itemRenderer is RenderProcesoNemo){
+					var pop:PopMantenedor = new PopMantenedor();
+					var mant:* = new FormInstrumento();
+					mant.fnBuscar = pop.fnSalir;
 					
+					pop.addChild(mant);
+					//mant.bottom = 10;
+					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
+					PopUpManager.centerPopUp(pop);
 				} else if(event.itemRenderer is RenderProcesoManager){
+					pop = new PopMantenedor();
+					mant = new FormManager();
+					mant.fnBuscar = pop.fnSalir;
 					
+					pop.addChild(mant);
+					//mant.bottom = 10;
+					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
+					PopUpManager.centerPopUp(pop);
 				} else if(event.itemRenderer is RenderProcesoDistribuidor){
+					pop = new PopMantenedor();
+					mant = new FormDistribuidor();
+					mant.fnBuscar = pop.fnSalir;
 					
+					pop.addChild(mant);
+					//mant.bottom = 10;
+					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
+					PopUpManager.centerPopUp(pop);
 				} else if(event.itemRenderer is RenderProcesoRegion){
+					pop = new PopMantenedor();
+					mant = new FormRegion();
+					mant.fnBuscar = pop.fnSalir;
 					
+					pop.addChild(mant);
+					//mant.bottom = 10;
+					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
+					PopUpManager.centerPopUp(pop);
 				} else if(event.itemRenderer is RenderProcesoSubregion){
+					pop = new PopMantenedor();
+					mant = new FormSubregion();
+					mant.fnBuscar = pop.fnSalir;
 					
+					pop.addChild(mant);
+					//mant.bottom = 10;
+					PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
+					PopUpManager.centerPopUp(pop);
 				}
 			}
 			

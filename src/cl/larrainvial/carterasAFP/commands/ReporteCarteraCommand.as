@@ -13,7 +13,7 @@ package cl.larrainvial.carterasAFP.commands
 	import mx.managers.CursorManager;
 	import mx.rpc.IResponder;
 	
-	public class ProcesoCommand implements ICommand, IResponder
+	public class ReporteCarteraCommand implements ICommand, IResponder
 	{
 		// attributes ============================
 	    [Bindable]
