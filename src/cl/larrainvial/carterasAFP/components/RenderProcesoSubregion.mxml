@@ -28,6 +28,10 @@
 						dato = "REGISTRAR"; 
 						editando = true;
 						correcto = false;
+					} else {
+						dato = data.subregion.nombre; 
+						editando = false;
+						correcto = true;
 					}
 					
 				}	

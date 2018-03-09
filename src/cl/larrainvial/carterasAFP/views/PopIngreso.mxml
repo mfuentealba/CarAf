@@ -13,6 +13,7 @@
 			import cl.larrainvial.carterasAFP.vo.DistribuidorVO;
 			import cl.larrainvial.carterasAFP.vo.InstrumentoVO;
 			import cl.larrainvial.carterasAFP.vo.ManagerVO;
+			import cl.larrainvial.carterasAFP.vo.ProcesoVO;
 			import cl.larrainvial.carterasAFP.vo.RegionVO;
 			import cl.larrainvial.carterasAFP.vo.SubregionVO;
 			
@@ -34,10 +35,35 @@
 			{
 				// TODO Auto-generated method stub
 				PopUpManager.removePopUp(this);
-				var ev:ProcesoEvent = new ProcesoEvent(ProcesoEvent.EVENT_PROCESO);
+				var ev:ProcesoEvent = new ProcesoEvent(ProcesoEvent.EVENT_GUARDAR_PROCESO);
+				
+				
+				var str:String = '<WSParam><Parametros><XmlIn><Root>';
+				
+				
+				
+				
+				for each(var obj:ProcesoVO in model.arrProceso){
+					str += '<Dato anio="' + obj.anio + '" periodo="' + obj.periodo  + '" id_instrumento="' + obj.id_instrumento + '" id_distribuidor="' + obj.id_distribuidor 
+						+ '" id_manager="' + obj.id_manager + '" id_region="' + obj.id_region + '" id_subregion="' + obj.id_subregion + '" fondoA="' + obj.fondoA 
+						+ '" fondoB="' + obj.fondoB + '" fondoC="' + obj.fondoC + '" fondoD="' + obj.fondoD + '" fondoE="' + obj.fondoE + '" total="' + obj.total
+						+ '" precio_actual="' + obj.precio_actual + '" precio_anterior="' + obj.precio_anterior + '" nro_cuotas="' + obj.nro_cuotas + '" diferencia_precio="' + obj.diferencia_precio + '"/>';
+					
+					if(!obj.distribuidor || !obj.instrumento || !obj.manager || !obj.instrumento || !obj.region || !obj.subregion){
+						Alert.show("Debe ingresar datos para todas las líneas", "Atención");
+						return;
+					}
+				}
+				
+				
+				
+				
+				
+				str += '</Root></XmlIn></Parametros></WSParam>';
+				
+				ev.xmlparam = str; 
 				//ev.callback = fnResult;
 				ev.dispatch();
-				Alert.show('Guardado con éxito. Los datos guardados no pueden ser modificados', 'Datos registrados'); 
 			}
 			
 			private function fnCompletar(obj:*, campo:String):void{
@@ -150,11 +176,13 @@
 				}
 			}
 			
+			
+			
 		]]>
 	</mx:Script>
 	
 	<mx:VBox width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{model.arrProceso}" itemClick="fnMantenedor(event)">
+		<mx:DataGrid id="dg" width="100%" height="100%" fontSize="15" dataProvider="{model.arrProceso}" itemClick="fnMantenedor(event)">
 			<mx:columns>
 				<mx:DataGridColumn dataField="nemo" headerText="Nemotécnico" itemRenderer="cl.larrainvial.carterasAFP.components.RenderProcesoNemo" width="300"/>
 				<mx:DataGridColumn dataField="instrumento.tipo" headerText="Tipo" width="100"/>
@@ -182,9 +210,9 @@
 			</mx:columns>
 			
 		</mx:DataGrid>	
-		<mx:HBox horizontalAlign="center">
+		<mx:HBox horizontalAlign="center" width="100%">
 			<mx:Button label="Guardar" click="fnConfirmar(event)"/>
-			<mx:Button label="Reprocesar"/>
+			<!--<mx:Button label="Reprocesar" click="fnActualizar(event)"/>-->
 		</mx:HBox>
 	</mx:VBox>
 	

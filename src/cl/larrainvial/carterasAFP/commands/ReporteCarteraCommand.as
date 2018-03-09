@@ -1,8 +1,9 @@
 package cl.larrainvial.carterasAFP.commands
 {	
 	import cl.larrainvial.carterasAFP.business.CarterasAFPDelegate;
-	import cl.larrainvial.carterasAFP.events.ProcesoEvent;
+	import cl.larrainvial.carterasAFP.events.ReporteEvent;
 	import cl.larrainvial.carterasAFP.model.ModelLocator;
+	import cl.larrainvial.carterasAFP.views.ReporteComparacionCarteras;
 	import cl.larrainvial.carterasAFP.vo.ProcesoVO;
 	
 	import com.adobe.cairngorm.commands.ICommand;
@@ -24,14 +25,13 @@ package cl.larrainvial.carterasAFP.commands
 		
 		[Embed(source="assets/images/ok.png")]
 		private var okIcon:Class;
-		public var evento:ProcesoEvent;
+		public var evento:ReporteEvent;
 		
 		public function execute(event:CairngormEvent) : void
 		{	
-			evento = ProcesoEvent(event);
-			//_Delegate.WMProcesar();
+			evento = ReporteEvent(event);
+			_Delegate.sp_diferencia_cartera(evento.xmlParam);
 			
-			result(null)
 		}
 		
 		

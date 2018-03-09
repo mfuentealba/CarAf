@@ -58,12 +58,10 @@
 			<mx:Button label="Buscar" click="fnBuscar(null, null)"/>	
 		</mx:HBox>
 		<mx:HBox width="100%" horizontalAlign="right" paddingRight="15" paddingLeft="15" height="100%">
-			<mx:DataGrid id="dg" width="100%" creationComplete="fnBuscar(null, null)" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrDistribuidores}">
+			<mx:DataGrid id="dg" width="100%" height="100%" creationComplete="fnBuscar(null, null)" itemClick="fnSeleccionActualizacion(event)" dataProvider="{model.arrDistribuidores}">
 				<mx:columns>
 					<mx:DataGridColumn dataField="anio" headerText="Año"/>						
 					<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
-					<mx:DataGridColumn dataField="isin" headerText="Isin"/>		
-					<mx:DataGridColumn dataField="ticker" headerText="Ticker"/>
 					<mx:DataGridColumn dataField="tipo" headerText="Tipo"/>
 					<mx:DataGridColumn dataField="distribuidor" headerText="Distribuidor"/>
 					<mx:DataGridColumn dataField="manager" headerText="Manager"/>

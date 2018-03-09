@@ -37,7 +37,7 @@ package cl.larrainvial.carterasAFP.commands
 		{
 			var xmlRespuesta:XML = XML(data.result);
 			Alert.show(xmlRespuesta.Resultado.row[0].@msg, 'Info');
-			evento.callback.call(this, data.result);
+			//evento.callback.call(this, data.result);
 			
 			
 		}

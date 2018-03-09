@@ -56,7 +56,7 @@
 				xmlStr += "</DESCRIPCION_ARCHIVO>";
 				xmlStr += "</ARCHIVO>";
 				var evento: ImportarEvent = new ImportarEvent(xmlStr);
-				evento.callback = fnResult;
+				//evento.callback = fnResult;
 				evento.dispatch()
 		
 				
@@ -177,40 +177,41 @@
 			
 		]]>
 	</mx:Script>
-	<mx:HBox width="100%" horizontalGap="0">
+	<mx:HBox width="100%" horizontalGap="0" horizontalAlign="center">
 		<mx:Form width="50%" verticalGap="30">
-			<mx:FormItem label="Periodo">
-				<mx:ComboBox id="cbPeriodo" y="29" horizontalCenter="0" labelField="label" dataProvider="{model.arrPeriodos}"></mx:ComboBox>	
+			<mx:FormItem width="100%" label="Periodo" horizontalAlign="left">
+				<mx:ComboBox id="cbPeriodo" y="29" width="165" dataProvider="{model.arrPeriodos}"
+							 horizontalCenter="0" labelField="label"></mx:ComboBox>	
 			</mx:FormItem>
-			<mx:FormItem label="Tipo Cartera">
-				<mx:ComboBox id="cbTipoCartera" y="69" horizontalCenter="0" dataProvider="{model.arrTipoCartera}"></mx:ComboBox>
+			<mx:FormItem width="100%" label="Tipo Cartera" horizontalAlign="left">
+				<mx:ComboBox id="cbTipoCartera" y="69" width="165"
+							 dataProvider="{model.arrTipoCartera}" horizontalCenter="0"></mx:ComboBox>
 			</mx:FormItem>
-		</mx:Form>
-		<mx:Form width="50%" verticalGap="30">
-			<mx:FormItem label="País">
-				<mx:ComboBox id="cbPais" horizontalCenter="0" y="29" labelField="label" dataProvider="{model.arrPais}"></mx:ComboBox>	
+			<mx:FormItem width="100%" label="País" horizontalAlign="left">
+				<mx:ComboBox id="cbPais" y="29" width="165" dataProvider="{model.arrPais}"
+							 horizontalCenter="0" labelField="label"></mx:ComboBox>	
 			</mx:FormItem>
-			<mx:FormItem label="Archivo">
+			<mx:FormItem width="100%" label="Archivo" horizontalAlign="left">
 				<mx:HBox>
-					<mx:TextInput id="txtNomArchivo" y="69" horizontalCenter="0" editable="false" click="fnBuscarArchivo(event)"/>
-					<mx:Button x="599" y="69" label="Examinar" click="fnBuscarArchivo(event)"/>
-					<mx:Button x="705" y="68" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
+					<mx:TextInput id="txtNomArchivo" width="165" click="fnBuscarArchivo(event)"
+								  editable="false" horizontalCenter="0"/>
+					<mx:Button width="125" label="Examinar" click="fnBuscarArchivo(event)"/>
+					<mx:Button width="125" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
 				</mx:HBox>
 				
 			</mx:FormItem>
+			<mx:FormItem width="100%" horizontalAlign="left">
+				<mx:Button width="165" height="40" label="Ejecutar Proceso" horizontalCenter="0" click="fnEjecutarProceso(event)"/>	
+			</mx:FormItem>
+			
 		</mx:Form>
+		
 			
 	</mx:HBox>
 	
 	
-	<mx:Button y="120" width="183" height="40" label="Ejecutar Proceso" horizontalCenter="0" click="fnEjecutarProceso(event)"/>
-	<mx:DataGrid left="10" right="10" top="168" bottom="10">
-		<mx:columns>
-			<mx:DataGridColumn dataField="col1" headerText="Column 1"/>
-			<mx:DataGridColumn dataField="col2" headerText="Column 2"/>
-			<mx:DataGridColumn dataField="col3" headerText="Column 3"/>
-		</mx:columns>
-	</mx:DataGrid>
+	
+	
 	
 	
 	

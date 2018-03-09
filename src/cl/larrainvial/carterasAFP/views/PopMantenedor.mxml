@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" paddingBottom="10" layout="absolute" width="800" minHeight="600" close="fnSalir(null, null)" title="Ingrese Datos" showCloseButton="true">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" paddingBottom="10" layout="absolute" width="1050" minHeight="600" close="fnSalir(null, null)" title="Ingrese Datos" showCloseButton="true">
 	<mx:Script>
 		<![CDATA[
 			import cl.larrainvial.carterasAFP.model.ModelLocator;

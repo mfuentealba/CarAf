@@ -28,6 +28,13 @@ Canvas {
    shadowDistance: 7;
    shadowDirection: right;	
 }
+
+
+FormItem
+{
+	horizontalAlign:center;
+}
+
 .mdiWindowNoFocus
 {
    borderAlpha: 1;
