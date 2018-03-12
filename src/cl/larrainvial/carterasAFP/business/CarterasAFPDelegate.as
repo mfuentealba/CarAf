@@ -332,6 +332,21 @@ package cl.larrainvial.carterasAFP.business
 			}
 		}	
 		
+		public function sp_diferencia_precios(xmlParam:String):void
+		{
+			try
+			{		
+				var token : AsyncToken;				
+				token = service.sp_diferencia_cartera(xmlParam);	
+				token.addResponder(responder);
+			}
+			catch (err:Error)
+			{
+				Alert.show(err.getStackTrace());
+				
+			}
+		}	
+		
 		
 	}
 }
