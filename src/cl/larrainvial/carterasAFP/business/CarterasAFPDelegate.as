@@ -287,12 +287,12 @@ package cl.larrainvial.carterasAFP.business
 		}
 		
 		
-		public function WMProcesar():void
+		public function WMProcesar(xmlParam:String):void
 		{
 			try
 			{		
 				var token : AsyncToken;				
-				token = service.sp_cartera_agregada_ejecutar();	
+				token = service.sp_cartera_agregada_ejecutar(xmlParam);	
 				token.addResponder(responder);
 			}
 			catch (err:Error)
@@ -337,7 +337,7 @@ package cl.larrainvial.carterasAFP.business
 			try
 			{		
 				var token : AsyncToken;				
-				token = service.sp_diferencia_cartera(xmlParam);	
+				token = service.sp_diferencia_precios(xmlParam);	
 				token.addResponder(responder);
 			}
 			catch (err:Error)
@@ -346,6 +346,24 @@ package cl.larrainvial.carterasAFP.business
 				
 			}
 		}	
+		
+		public function sp_archivo_cartera_agregada_listar(xmlParam:String):void
+		{
+			try
+			{		
+				//service.wsdl = 'http://localhost:5789/WSCarterasAFP/Service.asmx?wsdl';
+				//service.uri = 'http://localhost:5789/WSCarterasAFP/Service.asmx';
+				var token : AsyncToken;				
+				token = service.sp_archivo_cartera_agregada_listar(xmlParam);	
+				token.addResponder(responder);
+			}
+			catch (err:Error)
+			{
+				Alert.show(err.getStackTrace());
+				
+			}
+		}			
+		
 		
 		
 	}

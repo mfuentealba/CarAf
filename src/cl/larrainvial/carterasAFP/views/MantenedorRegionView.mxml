@@ -29,10 +29,9 @@
 			protected function fnSeleccionActualizacion(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
-				this.region = dg.selectedItem as RegionVO;
-				frm.txtMercado.text = region.mercado;
-				frm.txtRegion.text = region.nombre;
-				frm.txtSubregion.text = region.subregion;
+				this.frm.region = dg.selectedItem as RegionVO;
+				frm.txtMercado.text = frm.region.mercado;
+				frm.txtRegion.text = frm.region.nombre;
 			}
 			
 			
@@ -55,7 +54,6 @@
 				<mx:columns>
 					<mx:DataGridColumn dataField="nombre" headerText="Nombre"/>
 					<mx:DataGridColumn dataField="mercado" headerText="Mercado"/>
-					<mx:DataGridColumn dataField="subregion" headerText="Región"/>
 				</mx:columns>
 			</mx:DataGrid>	
 		</mx:HBox>

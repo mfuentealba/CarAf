@@ -2,6 +2,7 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="2000" height="544" fontSize="14">
 	<mx:Script>
 		<![CDATA[
+			import cl.larrainvial.carterasAFP.events.CargaEvent;
 			import cl.larrainvial.carterasAFP.events.ImportarEvent;
 			import cl.larrainvial.carterasAFP.events.ProcesoEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
@@ -10,6 +11,7 @@
 			import com.as3xls.xls.Sheet;
 			
 			import mx.controls.Alert;
+			import mx.formatters.DateFormatter;
 			import mx.managers.CursorManager;
 			import mx.managers.PopUpManager;
 			
@@ -53,12 +55,15 @@
 				xmlStr += "<DESCRIPCION_ARCHIVO>";
 				xmlStr += "<NOMBRE_ARCHIVO>" + fileRef.name + "</NOMBRE_ARCHIVO>";
 				xmlStr += "<USUARIO>" + model.Loggeado + "</USUARIO>";
+				xmlStr += "<PERIODO>" + cbPeriodo.selectedItem.label + "</PERIODO>";
+				xmlStr += "<PAIS>" + cbPais.selectedItem.label + "</PAIS>";
+				xmlStr += "<CARTERA>" + cbTipoCartera.selectedItem.label + "</CARTERA>";
 				xmlStr += "</DESCRIPCION_ARCHIVO>";
 				xmlStr += "</ARCHIVO>";
 				var evento: ImportarEvent = new ImportarEvent(xmlStr);
-				//evento.callback = fnResult;
-				evento.dispatch()
-		
+				evento.callback = fnResultImport;
+				evento.dispatch();
+				txtNomArchivo.text = '';
 				
 							
 							
@@ -69,27 +74,39 @@
 			private function fileRef_select(evt:Event):void 
 			{
 				var arrValNombre:Array = evt.currentTarget.name.split('.')[0].split('_');
-				if(arrValNombre.length == 3){
-					
-					var resultado:String = '';					
-					var reg:RegExp = /20\d{2}(0[1-9]|1[0-2])$/;				
-					var val:* = arrValNombre[2].search(reg);
-					
-					if(arrValNombre[0] == 'Cartera' && arrValNombre[1] == 'Agregada' && val > -1){
+				if(cbPeriodo.selectedItem){
+					if(arrValNombre.length == 3){
 						
-						fileRef.addEventListener(ProgressEvent.PROGRESS, onProgress); 
-						fileRef.addEventListener(Event.COMPLETE, onComplete);			
-						txtNomArchivo.text = fileRef.name;
+						var resultado:String = '';					
+						var reg:RegExp = /cbPeriodo.selectedItem/;				
+						var val:* = arrValNombre[2].search(reg);
+						
+						if(arrValNombre[0] == 'Cartera' && arrValNombre[1] == 'Agregada'){
+							if(arrValNombre[2] == cbPeriodo.selectedItem.label.split("-").join("")){
+								fileRef.addEventListener(ProgressEvent.PROGRESS, onProgress); 
+								fileRef.addEventListener(Event.COMPLETE, onComplete);			
+								txtNomArchivo.text = fileRef.name;	
+							} else {
+								Alert.show("El periodo seleccionado no corresponde al periodo del archivo.", "Atención");
+								return;
+							}
+							
+							
+						} else {
+							
+							Alert.show("Nombre del archivo no corresponde, debe ser Cartera_Agregada_[aaaamm].xls, donde aaaamm corresponde a año y mes. Ejemplo de nombre de archivo: “Cartera_Agregada_201801.xlsx”.", "Atención");
+							return;
+						}				
+						
 					} else {
-						 
 						Alert.show("Nombre del archivo no corresponde, debe ser Cartera_Agregada_[aaaamm].xls, donde aaaamm corresponde a año y mes. Ejemplo de nombre de archivo: “Cartera_Agregada_201801.xlsx”.", "Atención");
 						return;
-					}				
-					
+					}	
 				} else {
-					Alert.show("Nombre del archivo no corresponde, debe ser Cartera_Agregada_[aaaamm].xls, donde aaaamm corresponde a año y mes. Ejemplo de nombre de archivo: “Cartera_Agregada_201801.xlsx”.", "Atención");
+					Alert.show("Debe seleccionar un periodo previamente a cargar un archivo”.", "Atención");
 					return;
 				}
+				
 				
 				
 				
@@ -161,6 +178,14 @@
 				
 			}
 			
+			
+			private function fnResultImport(param:*):void{
+				var cargaEvent:CargaEvent = new CargaEvent();
+				cargaEvent.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato periodo="' + cbPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>';
+				cargaEvent.dispatch();
+			}
+			
+			
 			private function fnResult(param:*):void{
 				var pop:PopIngreso = new PopIngreso();
 				PopUpManager.addPopUp(pop, this.parentApplication as DisplayObject, true);
@@ -172,42 +197,83 @@
 				// TODO Auto-generated method stub
 				var ev:ProcesoEvent = new ProcesoEvent(ProcesoEvent.EVENT_PROCESO);
 				ev.callback = fnResult;
+				var arr:Array = cbPeriodo.text.split('-');
+				var df:DateFormatter = new DateFormatter();
+				df.formatString = 'YYYY-MM-DD';
+				var date:Date = new Date();
+				date.fullYear = arr[0];
+				date.month = Number(arr[1]);
+				date.date = 1;
+				
+				ev.xmlparam = '<WSParam><Parametros><XmlIn><Root><Dato periodo="' + df.format(date) + '"/></Root></XmlIn></Parametros></WSParam>';
 				ev.dispatch();
+			}
+			
+			protected function fnBuscar(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var cargaEvent:CargaEvent = new CargaEvent();
+				cargaEvent.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato periodo="' + cbPeriodo2.text + '"/></Root></XmlIn></Parametros></WSParam>';
+				cargaEvent.dispatch();
 			}
 			
 		]]>
 	</mx:Script>
-	<mx:HBox width="100%" horizontalGap="0" horizontalAlign="center">
-		<mx:Form width="50%" verticalGap="30">
-			<mx:FormItem width="100%" label="Periodo" horizontalAlign="left">
-				<mx:ComboBox id="cbPeriodo" y="29" width="165" dataProvider="{model.arrPeriodos}"
-							 horizontalCenter="0" labelField="label"></mx:ComboBox>	
-			</mx:FormItem>
-			<mx:FormItem width="100%" label="Tipo Cartera" horizontalAlign="left">
-				<mx:ComboBox id="cbTipoCartera" y="69" width="165"
-							 dataProvider="{model.arrTipoCartera}" horizontalCenter="0"></mx:ComboBox>
-			</mx:FormItem>
-			<mx:FormItem width="100%" label="País" horizontalAlign="left">
-				<mx:ComboBox id="cbPais" y="29" width="165" dataProvider="{model.arrPais}"
-							 horizontalCenter="0" labelField="label"></mx:ComboBox>	
-			</mx:FormItem>
-			<mx:FormItem width="100%" label="Archivo" horizontalAlign="left">
-				<mx:HBox>
-					<mx:TextInput id="txtNomArchivo" width="165" click="fnBuscarArchivo(event)"
-								  editable="false" horizontalCenter="0"/>
-					<mx:Button width="125" label="Examinar" click="fnBuscarArchivo(event)"/>
-					<mx:Button width="125" label="Cargar Archivo" click="fnCargaArchivo(event)"/>
-				</mx:HBox>
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox width="100%" horizontalGap="0" horizontalAlign="center">
+			<mx:Form width="50%" verticalGap="30">
+				<mx:FormItem width="100%" label="Periodo" horizontalAlign="left">
+					<mx:ComboBox id="cbPeriodo" y="29" width="165" dataProvider="{model.arrPeriodos}"
+								 horizontalCenter="0" labelField="label" selectedIndex="{cbPeriodo2.selectedIndex}"></mx:ComboBox>	
+				</mx:FormItem>
+				<mx:FormItem width="100%" label="Tipo Cartera" horizontalAlign="left">
+					<mx:ComboBox id="cbTipoCartera" y="69" width="165"
+								 dataProvider="{model.arrTipoCartera}" horizontalCenter="0"></mx:ComboBox>
+				</mx:FormItem>
+				<mx:FormItem width="100%" label="País" horizontalAlign="left">
+					<mx:ComboBox id="cbPais" y="29" width="165" dataProvider="{model.arrPais}"
+								 horizontalCenter="0" labelField="label"></mx:ComboBox>	
+				</mx:FormItem>
+				<mx:FormItem width="100%" label="Archivo" horizontalAlign="left">
+					<mx:HBox>
+						<mx:TextInput id="txtNomArchivo" width="165" click="fnBuscarArchivo(event)"
+									  editable="false" horizontalCenter="0"/>
+						<mx:Button width="125" label="Examinar" click="fnBuscarArchivo(event)"/>
+						<mx:Button width="125" label="Cargar Archivo" click="fnCargaArchivo(event)" enabled="{txtNomArchivo.text == '' ? false : true}"/>
+					</mx:HBox>
+					
+				</mx:FormItem>
+				<mx:FormItem width="100%" horizontalAlign="left">
+					<mx:Button width="165" height="40" label="Ejecutar Proceso" horizontalCenter="0" click="fnEjecutarProceso(event)"/>	
+				</mx:FormItem>
 				
-			</mx:FormItem>
-			<mx:FormItem width="100%" horizontalAlign="left">
-				<mx:Button width="165" height="40" label="Ejecutar Proceso" horizontalCenter="0" click="fnEjecutarProceso(event)"/>	
-			</mx:FormItem>
+			</mx:Form>
 			
-		</mx:Form>
-		
 			
-	</mx:HBox>
+		</mx:HBox>
+		<mx:HBox width="100%" horizontalAlign="right">
+			<mx:ComboBox id="cbPeriodo2" y="29" width="165" dataProvider="{model.arrPeriodos}" selectedIndex="{cbPeriodo.selectedIndex}"
+						 horizontalCenter="0" labelField="label"></mx:ComboBox>	
+			<mx:Button label="Buscar" click="fnBuscar(event)"/>
+		</mx:HBox>
+		<mx:DataGrid height="100%" width="100%" id="dg" dataProvider="{model.arrCarga}">
+			
+			<mx:columns>
+				<mx:DataGridColumn dataField="anio" headerText="Año"/>
+				<mx:DataGridColumn dataField="periodo" headerText="Periodo"/>
+				<mx:DataGridColumn dataField="nemo" headerText="Nemotécnico"/>
+				<mx:DataGridColumn dataField="institucion" headerText="Institución"/>
+				<mx:DataGridColumn dataField="fondoA" headerText="Fondo A"/>
+				<mx:DataGridColumn dataField="fondoB" headerText="Fondo B"/>
+				<mx:DataGridColumn dataField="fondoC" headerText="Fondo C"/>
+				<mx:DataGridColumn dataField="fondoD" headerText="Fondo D"/>
+				<mx:DataGridColumn dataField="fondoE" headerText="Fondo E"/>
+				<mx:DataGridColumn dataField="total" headerText="Total"/>
+				<mx:DataGridColumn dataField="porcentaje_total" headerText="Total %"/>
+			</mx:columns>
+		</mx:DataGrid>	
+	</mx:VBox>
+	
 	
 	
 	

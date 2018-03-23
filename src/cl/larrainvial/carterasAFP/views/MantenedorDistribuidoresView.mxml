@@ -29,18 +29,18 @@
 			protected function fnSeleccionActualizacion(event:ListEvent):void
 			{
 				// TODO Auto-generated method stub
-				this.distribuidor = dg.selectedItem as DistribuidorVO;
-				frm.txtTipo.text = distribuidor.tipo;
-				frm.txtManager.text = distribuidor.manager;
-				frm.txtEstilo.text = distribuidor.estilo;
-				frm.txtGestion.text = distribuidor.gestion;
-				frm.txtSubregion.text = distribuidor.subregion;
-				frm.txtPeriodo.text = distribuidor.periodo;
-				frm.txtDistribuidor.text = distribuidor.distribuidor;
-				frm.txtMercado.text = distribuidor.mercado;
-				frm.txtCapitalizacion.text = distribuidor.capitalizacion;
-				frm.txtRegion.text = distribuidor.region;
-				frm.txtAnio.text = distribuidor.anio;
+				this.frm.distribuidor = dg.selectedItem as DistribuidorVO;
+				frm.txtTipo.text = frm.distribuidor.tipo;
+				frm.txtManager.text = frm.distribuidor.manager;
+				frm.txtEstilo.text = frm.distribuidor.estilo;
+				frm.txtGestion.text = frm.distribuidor.gestion;
+				frm.txtSubregion.text = frm.distribuidor.subregion;
+				frm.txtPeriodo.text = frm.distribuidor.periodo;
+				frm.txtDistribuidor.text = frm.distribuidor.distribuidor;
+				frm.txtMercado.text = frm.distribuidor.mercado;
+				frm.txtCapitalizacion.text = frm.distribuidor.capitalizacion;
+				frm.txtRegion.text = frm.distribuidor.region;
+				frm.txtAnio.text = frm.distribuidor.anio;
 			}
 			
 			protected function fnAceptar(event:MouseEvent):void

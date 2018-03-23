@@ -80,7 +80,10 @@
 				<mx:TextInput id="txtAnio" focusOut="txtAnio.text = ConfigUtil.fnvalidaAnio(txtAnio.text)" maxChars="4" restrict="0-9"/>
 			</mx:FormItem>
 			<mx:FormItem label="Nombre">
-				<mx:TextInput id="txtNombre" focusOut="txtNombre.text = ConfigUtil.fnFormatoNombres(txtNombre.text)" maxChars="50"/>
+				<mx:TextInput id="txtNombre"
+							  focusOut="txtNombre.text = ConfigUtil.fnFormatoNombres(txtNombre.text)"
+							  maxChars="50"
+							  enabled="{manager ? false : true}"/>
 			</mx:FormItem>
 		</mx:Form>
 		<mx:Form width="50%" verticalGap="30">
@@ -95,7 +98,7 @@
 		</mx:Form>
 	</mx:HBox>
 	<mx:HBox>
-		<mx:Button width="70" label="{manager ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-		<mx:Button width="70" label="Nuevo" click="fnLimpiar(event)"/>			
+		<mx:Button width="120" height="50" label="{manager ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
+		<mx:Button width="120" height="50" label="Nuevo" click="fnLimpiar(event)"/>			
 	</mx:HBox>
 </mx:VBox>

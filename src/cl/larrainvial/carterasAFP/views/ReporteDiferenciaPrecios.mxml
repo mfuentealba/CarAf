@@ -3,6 +3,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import cl.larrainvial.carterasAFP.components.DataGrid2Excel;
 			import cl.larrainvial.carterasAFP.events.ReporteEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
 			
@@ -11,29 +12,44 @@
 			protected function fnExcel(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				var str:String = '';
+				var objConfig:Object = {mostrarInvisibles: true, mostrarCab: true, mostrarLogo: false};
+				var obj:Object;
+				var objExportaExcel:DataGrid2Excel = new DataGrid2Excel();
+				obj = {};
+				obj['nemo'] = ' style="mso-number-format:\'@\'; text-align: right;"';//style="mso-number-format:\'#,###,##0\';
+				obj['diferencia_precio'] = ' style="mso-number-format:\'0\.0000\';text-align: right;"';
 				
+				
+				DataGrid2Excel.urlExcelExport = model.rutaDownload;
+				str += DataGrid2Excel.convertDGToHTMLTable(dgResumen, obj, objConfig);
+				
+				objExportaExcel.loadDGInExcel2(str, obj);
 			}
 			
 			protected function fnBuscar(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				var ev:ReporteEvent = new ReporteEvent(ReporteEvent.EVENT_REPORTE_PRECIO_LISTAR);
+				ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato periodo="' + cbPeriodo.text + '"/></Root></XmlIn></Parametros></WSParam>';
 				ev.dispatch();
 			}
 			
 		]]>
 	</mx:Script>
 	<mx:HBox paddingLeft="20" paddingTop="120" height="100%" horizontalGap="50" paddingBottom="50">
-		<mx:DataGrid width="926" height="100%" dataProvider="{model.arrReportePrecio}">
+		<mx:DataGrid id="dgResumen" width="926" height="100%" dataProvider="{model.arrReportePrecio}">
 			<mx:columns>			
 				<mx:DataGridColumn dataField="nemo" headerText="ISIN/Ticker"/>
-				<mx:DataGridColumn dataField="diferencia" headerText="Diferencia Precios"/>
+				<mx:DataGridColumn dataField="diferencia_precio" headerText="Diferencia Precios"/>
 			</mx:columns>
 		</mx:DataGrid>
-		<mx:Canvas>
-			<mx:Button top="50" width="88" height="34" label="Excel" click="fnExcel(event)"/>	
-			<mx:Button y="10" left="0" right="0" height="32" label="Buscar" click="fnBuscar(event)"/>
-		</mx:Canvas>
+		<mx:VBox>
+			<mx:ComboBox id="cbPeriodo" dataProvider="{model.arrPeriodos}"/>
+			<mx:Button width="100%" height="35" label="Buscar" click="fnBuscar(event)"/>
+			<mx:Button width="100%" height="35" label="Excel" click="fnExcel(event)"/>	
+			
+		</mx:VBox>
 			
 	</mx:HBox>
 	

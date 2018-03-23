@@ -31,7 +31,7 @@ package cl.larrainvial.carterasAFP.commands
 		public function execute(event:CairngormEvent) : void
 		{	
 			evento = ReporteEvent(event);
-			_Delegate.sp_diferencia_cartera('<WSParam><Parametros><XmlIn><Root><Dato /></Root></XmlIn></Parametros></WSParam>');
+			_Delegate.sp_diferencia_cartera(evento.xmlParam);
 			
 		}
 		

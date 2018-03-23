@@ -13,7 +13,7 @@
 			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
 			
-			[Bindable] private var region:RegionVO;
+			[Bindable] public var region:RegionVO;
 			[Bindable] private var model:ModelLocator = ModelLocator.getInstance();
 			public var dg:DataGrid;
 			public var fnBuscar:Function;
@@ -22,12 +22,6 @@
 			protected function fnGuardar(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
-				if(txtSubregion.text == ''){
-					Alert.show('Ingrese un valor en el campo "Subregión"', 'Atención');
-					return;
-					
-				}
 				
 				if(txtMercado.text == ''){
 					Alert.show('Ingrese un valor en el campo "Mercado"', 'Atención');
@@ -43,12 +37,12 @@
 				if(region){
 					var ev:RegionEvent = new RegionEvent(RegionEvent.EVENT_REGION_ACTUALIZAR);
 					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" subregion="' + txtSubregion.text + '" id="' + region.id + '" /></Root></XmlIn></Parametros></WSParam>'
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" id="' + region.id + '" /></Root></XmlIn></Parametros></WSParam>'
 					ev.dispatch();
 				} else {
 					ev = new RegionEvent(RegionEvent.EVENT_REGION_GUARDAR);
 					ev.callback = fnBuscar;
-					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" subregion="' + txtSubregion.text + '" /></Root></XmlIn></Parametros></WSParam>'
+					ev.xmlParam = '<WSParam><Parametros><XmlIn><Root><Dato nombre="' + txtRegion.text + '" mercado="' + txtMercado.text + '" /></Root></XmlIn></Parametros></WSParam>'
 					ev.dispatch();	
 				}
 				
@@ -61,7 +55,6 @@
 				this.region = null;
 				txtMercado.text = '';
 				txtRegion.text = '';
-				txtSubregion.text = '';
 				dg.selectedItem = null;
 			}
 			
@@ -71,23 +64,20 @@
 		
 		<mx:Form width="50%" verticalGap="30">
 			<mx:FormItem label="Nombre">
-				<mx:TextInput id="txtRegion" focusOut="txtRegion.text = ConfigUtil.fnFormatoNombres(txtRegion.text)" maxChars="30"/>
+				<mx:TextInput id="txtRegion" focusOut="txtRegion.text = ConfigUtil.fnFormatoNombres(txtRegion.text)" maxChars="30" enabled="{region ? false : true}"/>
 			</mx:FormItem>
 			<mx:FormItem label="Mercado">
 				<mx:TextInput id="txtMercado" focusOut="txtMercado.text = ConfigUtil.fnFormatoNombres(txtMercado.text)" maxChars="20"/>
 			</mx:FormItem>
 		</mx:Form>
 		<mx:Form width="50%" verticalGap="30">
-			<mx:FormItem label="Subregión">
-				<mx:TextInput id="txtSubregion" focusOut="txtSubregion.text = ConfigUtil.fnFormatoNombres(txtSubregion.text)" maxChars="25"/>
-			</mx:FormItem>
 			
 			
 		</mx:Form>
 	</mx:HBox>
 	
 	<mx:HBox>
-		<mx:Button width="70" label="{region ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
-		<mx:Button width="70" label="Nuevo" click="fnLimpiar(event)"/>			
+		<mx:Button width="120" height="50" label="{region ? 'Actualizar' : 'Guardar'}" click="fnGuardar(event)"/>
+		<mx:Button width="120" height="50" label="Nuevo" click="fnLimpiar(event)"/>			
 	</mx:HBox>
 </mx:VBox>

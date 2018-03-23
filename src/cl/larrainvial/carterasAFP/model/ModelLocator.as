@@ -36,13 +36,16 @@ package cl.larrainvial.carterasAFP.model
 		public var arrPais:ArrayCollection;
 		public var objPais:Object = {};
 		public var rutaUpload:String;
+		public var rutaDownload:String;
 		public var Loggeado:String;
 		public var arrServiciosExternos:ArrayCollection;
 		public var arrReportePrecio:ArrayCollection;
 		public var objReportePrecio:Object = {};
 		public var arrReporteCartera:ArrayCollection;
 		public var objReporteCartera:Object = {};
-
+		public var arrCarga:ArrayCollection;
+		public var objCarga:Object = {};
+		
 		public static function getInstance():cl.larrainvial.carterasAFP.model.ModelLocator
 		{
 			if ( modelLocator == null )

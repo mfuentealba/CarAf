@@ -32,6 +32,7 @@ package cl.larrainvial.carterasAFP.commands
 				var reg:RegionVO = new RegionVO();
 				reg.fillAttributes = item;
 				model.arrRegiones.addItem(reg);
+				model.objRegiones[reg.nombre] = reg;
 				model.objRegiones[reg.id] = reg;
 			}
 			

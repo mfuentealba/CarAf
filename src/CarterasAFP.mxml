@@ -8,11 +8,16 @@
 	<mx:Script>
 		<![CDATA[ 
 			import cl.larrainvial.carterasAFP.business.Services;
+			import cl.larrainvial.carterasAFP.events.DistribuidorEvent;
+			import cl.larrainvial.carterasAFP.events.InstrumentoEvent;
+			import cl.larrainvial.carterasAFP.events.ManagerEvent;
+			import cl.larrainvial.carterasAFP.events.RegionEvent;
+			import cl.larrainvial.carterasAFP.events.SubregionEvent;
 			import cl.larrainvial.carterasAFP.model.ModelLocator;
 			import cl.larrainvial.carterasAFP.vo.ConfigVO;
 			import cl.larrainvial.carterasAFP.vo.WebServicesVo;
-			import mx.collections.ArrayCollection;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.controls.Button;
 			import mx.core.mx_internal;
@@ -82,6 +87,21 @@
 				if(!serviceLoaded)
 				{
 					Alert.show("Error en la carga de servicios. \nPor favor recargue la pagina", "Error");
+				} else {
+					var evRegion:RegionEvent = new RegionEvent(RegionEvent.EVENT_REGION_LISTAR);
+					evRegion.dispatch();
+					
+					var evSubregion:SubregionEvent = new SubregionEvent(SubregionEvent.EVENT_SUBREGION_LISTAR);
+					evSubregion.dispatch();
+					
+					var evManager:ManagerEvent = new ManagerEvent(ManagerEvent.EVENT_MANAGER_LISTAR);
+					evManager.dispatch();
+					
+					var evDistribuidor:DistribuidorEvent = new DistribuidorEvent(DistribuidorEvent.EVENT_DISTRIBUIDOR_LISTAR);
+					evDistribuidor.dispatch();
+					
+					var evInstrumento:InstrumentoEvent = new InstrumentoEvent(InstrumentoEvent.EVENT_INSTRUMENTO_LISTAR);
+					evInstrumento.dispatch();
 				}
 				
 				
@@ -114,7 +134,8 @@
 				webTipoCartera.send();
 				webPais.send();
 				webExternos.send();
-				 
+				
+				
 			}
 			
 			protected function webTipoCartera_resultHandler(event:ResultEvent):void
@@ -164,7 +185,8 @@
 					config.url = String(nodeWS.url);
 					model.arrServiciosExternos.addItem(config);
 				}
-				model.rutaUpload = model.arrServiciosExternos.getItemAt(0)['url']; 
+				model.rutaUpload = model.arrServiciosExternos.getItemAt(0)['url'];
+				model.rutaDownload = model.arrServiciosExternos.getItemAt(1)['url'];
 			}
 			
 		]]>

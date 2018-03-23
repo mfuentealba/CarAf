@@ -1,5 +1,6 @@
 package cl.larrainvial.carterasAFP.controller
 {
+	import cl.larrainvial.carterasAFP.commands.CargaListarCommand;
 	import cl.larrainvial.carterasAFP.commands.DistribuidorActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.DistribuidorGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.DistribuidorListarCommand;
@@ -20,6 +21,7 @@ package cl.larrainvial.carterasAFP.controller
 	import cl.larrainvial.carterasAFP.commands.SubregionActualizarCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionGuardarCommand;
 	import cl.larrainvial.carterasAFP.commands.SubregionListarCommand;
+	import cl.larrainvial.carterasAFP.events.CargaEvent;
 	import cl.larrainvial.carterasAFP.events.DistribuidorEvent;
 	import cl.larrainvial.carterasAFP.events.ImportarEvent;
 	import cl.larrainvial.carterasAFP.events.InstrumentoEvent;
@@ -66,7 +68,7 @@ package cl.larrainvial.carterasAFP.controller
 			//addCommand(ReporteEvent.EVENT_EXCEL, ProcesoCommand);
 			addCommand(ReporteEvent.EVENT_REPORTE_CARTERA_LISTAR, ReporteCarteraCommand);
 			addCommand(ReporteEvent.EVENT_REPORTE_PRECIO_LISTAR, ReportePreciosCommand);
-			
+			addCommand(CargaEvent.EVENT_CARGA, CargaListarCommand);
        	}
     }
 }

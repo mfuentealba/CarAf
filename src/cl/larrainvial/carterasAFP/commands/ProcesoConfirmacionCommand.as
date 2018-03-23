@@ -41,7 +41,7 @@ package cl.larrainvial.carterasAFP.commands
 			//Alert.show(xmlRespuesta + '');
 			var xmlRespuesta:XML = XML(data.result);
 			Alert.show(xmlRespuesta.Resultado.row[0].@msg + '. Los datos guardados no pueden ser modificados', 'Info');
-			//evento.callback.call(this, data.result);
+			evento.callback.call(this,xmlRespuesta.Resultado.row[0].@msg);
 			
 			/*model.arrProceso = new ArrayCollection();
 			for each(var item:* in xmlRespuesta.Resultado.row)

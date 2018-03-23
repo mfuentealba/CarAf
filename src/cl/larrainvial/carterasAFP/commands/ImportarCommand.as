@@ -36,8 +36,14 @@ package cl.larrainvial.carterasAFP.commands
 		public function result(data:Object) : void
 		{
 			var xmlRespuesta:XML = XML(data.result);
-			Alert.show(xmlRespuesta.Resultado.row[0].@msg, 'Info');
-			//evento.callback.call(this, data.result);
+			try{
+				Alert.show(xmlRespuesta.Resultado.row[0].@msg, 'Info');
+				
+				evento.callback.call(this, data.result);	
+			} catch(e:*){
+				Alert.show(data.result, 'Info');
+			}
+			
 			
 			
 		}

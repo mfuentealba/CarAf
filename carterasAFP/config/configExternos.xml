@@ -1,0 +1,11 @@
+<configWS>
+	<Externo>
+		<id>CargaExcel</id>
+		<url>http://webservices.desarrollo.larrainvial.com/WSCarterasAFP/Carga.aspx</url>
+	</Externo>
+	<Externo>
+		<id>ExportaExcel</id>
+		<url>http://intranet.larrainvial.com/FlexExporta/exportaExcel.asp</url>
+	</Externo>
+</configWS>
+ 
